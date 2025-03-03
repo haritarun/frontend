@@ -1,131 +1,144 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LottieView from 'lottie-react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import LabTestScreen from './src/Screens/LabTestScreen';
+import HomeScreen from './src/Screens/HomeScreen';
+import Product from './src/Screens/Product';
+import Chat from './src/Screens/Chat';
+import Account from './src/Screens/Account';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Tab = createBottomTabNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="LabTest"
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarActiveTintColor: '#32CE7A',
+          tabBarInactiveTintColor: 'gray',
+          tabBarStyle: {
+            flexDirection: 'row',
+            position: 'absolute',
+            bottom: 21,
+            marginHorizontal: 30,
+            borderRadius: 80,
+            backgroundColor: '#def1ec',
+            justifyContent: 'center',
+            alignContent: 'center',
+            height: 60,
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+        }}
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
+                <Icon name="home" color={color} size={focused ? 20 : 25} />
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="LabTest"
+          component={LabTestScreen}
+          options={{
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
+                <MaterialCommunityIcons
+                  name="flask-plus-outline"
+                  size={focused ? 20 : 25}
+                  color={color}
+                />
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="About"
+          component={Product}
+          options={{
+            tabBarIcon: () => (
+              <View style={styles.logoContainer}>
+                <LottieView
+                  source={require('./assets/logo.json')}
+                  style={styles.logo}
+                  autoPlay
+                  loop
+                />
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Doctors"
+          component={Chat}
+          options={{
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
+                <FontAwesome name="stethoscope" size={focused ? 20 : 25} color={color} />
+              </View>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Account"
+          component={Account}
+          options={{
+            tabBarIcon: ({ focused, color }) => (
+              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
+                <FontAwesome5 name="user-cog" size={focused ? 20 : 23} color={color} />
+              </View>
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  /*
-   * To keep the template simple and small we're adding padding to prevent view
-   * from rendering under the System UI.
-   * For bigger apps the reccomendation is to use `react-native-safe-area-context`:
-   * https://github.com/AppAndFlow/react-native-safe-area-context
-   *
-   * You can read more about it here:
-   * https://github.com/react-native-community/discussions-and-proposals/discussions/827
-   */
-  const safePadding = '5%';
-
-  return (
-    <View style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        style={backgroundStyle}>
-        <View style={{paddingRight: safePadding}}>
-          <Header/>
-        </View>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            paddingHorizontal: safePadding,
-            paddingBottom: safePadding,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  HomeContainer: {
+    height: 50,
+    width: 50,
+    backgroundColor: '#ffffff',
+    borderRadius: 25, 
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 17,
+  },
+  logo: {
+    height: 50,
+    width: 50,
+    backgroundColor: 'transparent',
+    borderRadius: 20,
+  },
+  logoContainer: {
+    height: 50,
+    width: 50,
+    borderRadius: 25, 
+    marginTop: 12,
+  },
+  imageContainer: {
+    marginTop: 20,
+    height: 30,
+    width: 30,
+  },
+});
