@@ -13,28 +13,32 @@ import Product from './src/Screens/Product';
 import Chat from './src/Screens/Chat';
 import Account from './src/Screens/Account';
 
+
 const Tab = createBottomTabNavigator();
+
+
+  
+
 
 const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="LabTest"
+        initialRouteName="Account"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: '#32CE7A',
           tabBarInactiveTintColor: 'gray',
           tabBarStyle: {
-            flexDirection: 'row',
             position: 'absolute',
             bottom: 21,
             marginHorizontal: 30,
             borderRadius: 80,
             backgroundColor: '#def1ec',
-            justifyContent: 'center',
-            alignContent: 'center',
             height: 60,
+            justifyContent: 'center',
+            alignItems: 'center',
           },
         }}
       >
@@ -43,8 +47,8 @@ const App = () => {
           component={HomeScreen}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
-                <Icon name="home" color={color} size={focused ? 20 : 25} />
+              <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>
+                <Icon name="home" color={color} size={25} />
               </View>
             ),
           }}
@@ -54,18 +58,14 @@ const App = () => {
           component={LabTestScreen}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
-                <MaterialCommunityIcons
-                  name="flask-plus-outline"
-                  size={focused ? 20 : 25}
-                  color={color}
-                />
+              <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>
+                <MaterialCommunityIcons name="flask-plus-outline" size={25} color={color} />
               </View>
             ),
           }}
         />
         <Tab.Screen
-          name="About"
+          name="Product"
           component={Product}
           options={{
             tabBarIcon: () => (
@@ -85,8 +85,8 @@ const App = () => {
           component={Chat}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
-                <FontAwesome name="stethoscope" size={focused ? 20 : 25} color={color} />
+              <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>
+                <FontAwesome name="stethoscope" size={25} color={color} />
               </View>
             ),
           }}
@@ -96,8 +96,8 @@ const App = () => {
           component={Account}
           options={{
             tabBarIcon: ({ focused, color }) => (
-              <View style={focused ? styles.HomeContainer : styles.imageContainer}>
-                <FontAwesome5 name="user-cog" size={focused ? 20 : 23} color={color} />
+              <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>
+                <FontAwesome5 name="user-cog" size={23} color={color} />
               </View>
             ),
           }}
@@ -110,35 +110,26 @@ const App = () => {
 export default App;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:5,
   },
-  HomeContainer: {
+  iconContainerFocused: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    borderRadius: 25,
     height: 50,
     width: 50,
-    backgroundColor: '#ffffff',
-    borderRadius: 25, 
+    marginTop:12
+  },
+  logoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 17,
   },
   logo: {
     height: 50,
     width: 50,
-    backgroundColor: 'transparent',
-    borderRadius: 20,
-  },
-  logoContainer: {
-    height: 50,
-    width: 50,
-    borderRadius: 25, 
-    marginTop: 12,
-  },
-  imageContainer: {
-    marginTop: 20,
-    height: 30,
-    width: 30,
   },
 });

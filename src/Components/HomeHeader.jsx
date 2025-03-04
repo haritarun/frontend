@@ -4,15 +4,13 @@ import Icon from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather';
 
-
 const HomeHeader = () => {
   return (
     <>
         <View style={styles.HeaderContainer}>
-        <TouchableOpacity style={{marginTop:5,flexDirection:'row'}}>
+        <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} >
         <Icon name="location-pin" size={20} color={'green'} />
             <Text style={styles.textContainer}>Add Location</Text> 
-            
         </TouchableOpacity>
         <View style={styles.notificationContainer}>
             <TouchableOpacity style={styles.IconContainer}>
