@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text} from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -10,7 +10,7 @@ const Chat = () => {
         style={styles.container}
         locations={[0.7,1.0]}
         >
-          
+          <Text>hi</Text>
       </LinearGradient>
   )
 }

@@ -3,40 +3,48 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
+
 
 const HomeHeader = () => {
-  return (
-    <>
-        <View style={styles.HeaderContainer}>
-        <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} >
-        <Icon name="location-pin" size={20} color={'green'} />
-            <Text style={styles.textContainer}>Add Location</Text> 
-        </TouchableOpacity>
-        <View style={styles.notificationContainer}>
-            <TouchableOpacity style={styles.IconContainer}>
-                <FontAwesome6 name="store" size={20} color={'#737d7c'} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.IconContainer}>
-            <Icon name="notification" size={20} color={'#737d7c'}/>
-            </TouchableOpacity>
-        </View>
-    </View>
+    const navigation = useNavigation();
 
-    <View style={{flexDirection:'row',alignItems:'center',position:'fixed',top:0,left:0,right:0,zIndex:50,marginBottom:10}}>
-        <View style={styles.container}>
-        
-            <TextInput
-                placeholder="Enter Something"
-                style={styles.input}
-            />
-            <Feather name="search" size={20} color="#888" style={styles.icon} />
+
+    const getNavigation=()=>{
+        navigation.navigate("LocationScreen")
+    }
+
+    return (
+        <>
+            <View style={styles.HeaderContainer}>
+            <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} onPress={getNavigation}>
+            <Icon name="location-pin" size={20} color={'green'} />
+                <Text style={styles.textContainer}>Add Location</Text> 
+            </TouchableOpacity>
+            <View style={styles.notificationContainer}>
+                <TouchableOpacity style={styles.IconContainer}>
+                    <FontAwesome6 name="store" size={20} color={'#737d7c'} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.IconContainer}>
+                <Icon name="notification" size={20} color={'#737d7c'}/>
+                </TouchableOpacity>
+            </View>
         </View>
-        <TouchableOpacity>
-            <FontAwesome6 name='cart-shopping' size={28} color={'#a0a9a8'} style={{marginLeft:15,marginTop:10}}/>
-        </TouchableOpacity>
-    </View>
-    </>
-  )
+
+        <View style={{flexDirection:'row',alignItems:'center',position:'fixed',top:0,left:0,right:0,zIndex:50,marginBottom:10}}>
+            <View style={styles.container}>
+                <TextInput
+                    placeholder="Enter Something"
+                    style={styles.input}
+                />
+                <Feather name="search" size={20} color="#888" style={styles.icon} />
+            </View>
+            <TouchableOpacity>
+                <FontAwesome6 name='cart-shopping' size={28} color={'#a0a9a8'} style={{marginLeft:15,marginTop:10}}/>
+            </TouchableOpacity>
+        </View>
+        </>
+    )
 }
 
 

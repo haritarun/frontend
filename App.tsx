@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View ,Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -12,19 +12,29 @@ import HomeScreen from './src/Screens/HomeScreen';
 import Product from './src/Screens/Product';
 import Chat from './src/Screens/Chat';
 import Account from './src/Screens/Account';
-
+import { createStackNavigator } from '@react-navigation/stack';
+import Location from './src/Components/Location';
 
 const Tab = createBottomTabNavigator();
 
+const HomeStack = createStackNavigator();
 
-  
+const HomeStackScreen = () => {
+  return (
+      <HomeStack.Navigator>
+          <HomeStack.Screen name="HomeScreen" component={Chat} />
+          <HomeStack.Screen name="LocationScreen" component={Location} />
+      </HomeStack.Navigator>
+  );
+};
+
 
 
 const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Account"
+        initialRouteName="Doctors"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
@@ -82,7 +92,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Doctors"
-          component={Chat}
+          component={HomeStackScreen}
           options={{
             tabBarIcon: ({ focused, color }) => (
               <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>
@@ -132,4 +142,4 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
   },
-});
+}); 
