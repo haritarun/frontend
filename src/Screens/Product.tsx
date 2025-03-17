@@ -21,7 +21,7 @@ const Product = () => {
         style={styles.container}
         locations={[0.7,1.0]}
         >
-          <HomeHeader />
+          <HomeHeader item={'Product'}/>
           <ScrollView>
             <View style={styles.offerContainer}>
                       <Text style={{textAlign:'center',marginTop:10,color:'#69726b',fontSize:15}}>
@@ -46,7 +46,7 @@ const Product = () => {
             <Support />
             <Folled />
           </ScrollView>
-        </LinearGradient>
+    </LinearGradient>
   )
 }
 

@@ -1,28 +1,62 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import Icon from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 
 
-const HomeHeader = () => {
+const HomeHeader = ({item}) => {
     const navigation = useNavigation();
+    const [placeholder, setPlaceholder] = useState('');
+      const [textIndex, setTextIndex] = useState(0);
+    
+      const placeholderOptions = [
+          'Enter Your Location...',
+          'Search Nearby Places...',
+          'Search Any Products...',
+          'Add a Landmark...',
+          'Type Your Destination...'
+      ];
+    
+      useEffect(() => {
+        let text = placeholderOptions[textIndex];
+        let charIndex = 0;
+    
+        const typeEffect = setInterval(() => {
+          if (charIndex < text.length) {
+            setPlaceholder(text.slice(0, charIndex + 1));
+            charIndex++;
+          } else {
+            clearInterval(typeEffect);
+    
+            
+            setTimeout(() => {
+              setTextIndex((prevIndex) => (prevIndex + 1) % placeholderOptions.length);
+              setPlaceholder('');
+            }, 1500); 
+          }
+        }, 100); 
+    
+        return () => clearInterval(typeEffect);
+      }, [textIndex]);
 
-
-    const getNavigation=()=>{
-        navigation.navigate("LocationScreen")
-    }
 
     return (
         <>
             <View style={styles.HeaderContainer}>
-            <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} onPress={getNavigation}>
+            <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} onPress={() => {
+    console.log('Navigation object:', navigation); 
+    navigation.navigate('Doctors', { screen: 'LocationScreen', params: { previousScreen: item } });
+
+  }} >
             <Icon name="location-pin" size={20} color={'green'} />
                 <Text style={styles.textContainer}>Add Location</Text> 
             </TouchableOpacity>
             <View style={styles.notificationContainer}>
-                <TouchableOpacity style={styles.IconContainer}>
+                <TouchableOpacity style={styles.IconContainer} onPress={()=>{
+                  navigation.navigate('Doctors',{screen:''})
+                }}>
                     <FontAwesome6 name="store" size={20} color={'#737d7c'} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.IconContainer}>
@@ -34,7 +68,7 @@ const HomeHeader = () => {
         <View style={{flexDirection:'row',alignItems:'center',position:'fixed',top:0,left:0,right:0,zIndex:50,marginBottom:10}}>
             <View style={styles.container}>
                 <TextInput
-                    placeholder="Enter Something"
+                    placeholder={placeholder}
                     style={styles.input}
                 />
                 <Feather name="search" size={20} color="#888" style={styles.icon} />
@@ -70,6 +104,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginLeft:17,
+        
     },
     textContainer:{
         fontSize:15,
@@ -81,20 +116,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center', 
         borderWidth: 1, 
-        borderColor: '#ccc',
+
         borderRadius: 8, 
         paddingHorizontal: 10, 
         paddingVertical: 5, 
         width: '79%',
         marginLeft:20,
         marginTop: 10, 
+        borderColor: '#32CE7A',
+     
       },
       icon: {
         marginRight: 10, 
       },
       input: {
         flex: 1, 
-        fontSize: 16,
+        fontSize: 18,
         paddingVertical: 8, 
+        fontWeight:500
       },
 })

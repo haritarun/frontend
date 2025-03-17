@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View ,Text} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -14,17 +14,25 @@ import Chat from './src/Screens/Chat';
 import Account from './src/Screens/Account';
 import { createStackNavigator } from '@react-navigation/stack';
 import Location from './src/Components/Location';
+import StoreScreen from './src/Screens/StoreScreen';
 
 const Tab = createBottomTabNavigator();
 
-const HomeStack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-      <HomeStack.Navigator>
-          <HomeStack.Screen name="HomeScreen" component={Chat} />
-          <HomeStack.Screen name="LocationScreen" component={Location} />
-      </HomeStack.Navigator>
+    <Stack.Navigator initialRouteName='LocationScreen'>
+        
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="LocationScreen" component={Location} options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="StoreScreen" component={StoreScreen} 
+        options={{
+          headerShown:false
+        }}/>
+      </Stack.Navigator>
   );
 };
 
