@@ -45,23 +45,23 @@ const HomeHeader = ({item}) => {
     return (
         <>
             <View style={styles.HeaderContainer}>
-            <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} onPress={() => {
-    console.log('Navigation object:', navigation); 
-    navigation.navigate('Doctors', { screen: 'LocationScreen', params: { previousScreen: item } });
-
-  }} >
-            <Icon name="location-pin" size={20} color={'green'} />
-                <Text style={styles.textContainer}>Add Location</Text> 
-            </TouchableOpacity>
-            <View style={styles.notificationContainer}>
-                <TouchableOpacity style={styles.IconContainer} onPress={()=>{
-                  navigation.navigate('Doctors',{screen:''})
-                }}>
-                    <FontAwesome6 name="store" size={20} color={'#737d7c'} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.IconContainer}>
-                <Icon name="notification" size={20} color={'#737d7c'}/>
-                </TouchableOpacity>
+              <TouchableOpacity style={{marginTop:5,flexDirection:'row'}} onPress={() => {
+              navigation.navigate('Doctors', { screen: 'LocationScreen', params: { previousScreen: item } });
+              }} >
+              <Icon name="location-pin" size={20} color={'green'} />
+                  <Text style={styles.textContainer}>Add Location</Text> 
+              </TouchableOpacity>
+              <View style={styles.notificationContainer}>
+                  <TouchableOpacity style={styles.IconContainer} onPress={()=>{
+                    navigation.navigate('Doctors',{screen:'StoreScreen',params:{previousScreen:item}})
+                  }}>
+                      <FontAwesome6 name="store" size={20} color={'#737d7c'} />
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.IconContainer} onPress={()=>{
+                    navigation.navigate('Doctors',{screen:'NotificationScreen',params:{previousScreen:item}})
+                  }}>
+                  <Icon name="notification" size={20} color={'#737d7c'}/>
+                  </TouchableOpacity>
             </View>
         </View>
 
@@ -73,7 +73,9 @@ const HomeHeader = ({item}) => {
                 />
                 <Feather name="search" size={20} color="#888" style={styles.icon} />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+                    navigation.navigate('Doctors',{screen:'CartScreen',params:{previousScreen:item}})
+                  }}>
                 <FontAwesome6 name='cart-shopping' size={28} color={'#a0a9a8'} style={{marginLeft:15,marginTop:10}}/>
             </TouchableOpacity>
         </View>

@@ -15,6 +15,10 @@ import Account from './src/Screens/Account';
 import { createStackNavigator } from '@react-navigation/stack';
 import Location from './src/Components/Location';
 import StoreScreen from './src/Screens/StoreScreen';
+import NotificationScreen from './src/Screens/NotificationScreen';
+import CartScreen from './src/Screens/CartScreen';
+import ServicesScreen from './src/Screens/ServicesScreen';
+import EveryDayEssentialsAll from './src/Screens/EveryDayEssentialsAll';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,8 +26,8 @@ const Stack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <Stack.Navigator initialRouteName='LocationScreen'>
-        
+    <Stack.Navigator initialRouteName='EveryDayEssentialsAll'>
+      
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -32,7 +36,22 @@ const HomeStackScreen = () => {
         options={{
           headerShown:false
         }}/>
-      </Stack.Navigator>
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen} options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="CartScreen" component={CartScreen} options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="ServicesScreen" component={ServicesScreen} options={{
+          headerShown:false
+        }} />
+        <Stack.Screen name="EveryDayEssentialsAll" component={EveryDayEssentialsAll}
+        options={{
+          headerShown:false
+        }}
+        />
+        
+  </Stack.Navigator>
   );
 };
 
@@ -83,8 +102,9 @@ const App = () => {
           }}
         />
         <Tab.Screen
-          name="Product"
-          component={Product}
+        name="Doctors"
+        component={HomeStackScreen}
+          
           options={{
             tabBarIcon: () => (
               <View style={styles.logoContainer}>
@@ -99,8 +119,8 @@ const App = () => {
           }}
         />
         <Tab.Screen
-          name="Doctors"
-          component={HomeStackScreen}
+          name="Product"
+          component={Product}
           options={{
             tabBarIcon: ({ focused, color }) => (
               <View style={focused ? styles.iconContainerFocused : styles.iconContainer}>

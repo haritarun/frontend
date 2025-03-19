@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View ,Image, TouchableOpacity} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 
 const Data=[
@@ -34,11 +35,20 @@ const Data=[
 ]
 
 const EveryDayEsstensial = () => {
+    const navigation = useNavigation()
+    const getNavigate =()=>{
+        
+            navigation.navigate('Doctors', {
+              screen: 'EveryDayEssentialsAll',
+             
+            });
+        
+    }
   return (
     <View style={styles.offerContainer}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{color:"#456b52",fontWeight:700,fontSize:17}}>Every Day Essentials</Text>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={()=>{getNavigate()}}>
                 <Text style={{fontSize:15,fontStyle:'normal',color:'#07666d',fontWeight:600}}>View All</Text>
             </TouchableOpacity>
         </View>
@@ -62,7 +72,7 @@ export default EveryDayEsstensial
 
 const styles = StyleSheet.create({
     offerContainer:{
-        backgroundColor:'#edf7ef',
+        backgroundColor:'#ffffff',
         height:'auto',
         marginHorizontal:20,
         borderRadius:10,

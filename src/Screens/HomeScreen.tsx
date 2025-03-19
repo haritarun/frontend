@@ -17,38 +17,38 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Data=[
+const Data = [
   {
-    id:1,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
+    id: 1,
+    icon: 'https://img.freepik.com/free-vector/delivery-staff-ride-motorcycles-shopping-concept_1150-34879.jpg',
+    title: 'Medicine Delivery',
+    description: 'Get your medicines delivered to your doorstep within 30 minutes.',
   },
   {
-    id:2,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
+    id: 2,
+    icon: 'https://media.istockphoto.com/id/1319031310/photo/doctor-writing-a-medical-prescription.jpg?s=612x612&w=0&k=20&c=DWZGM8lBb5Bun7cbxhKT1ruVxRC_itvFzA9jxgoA0N8=',
+    title: 'Doctor Consultation', 
+    description: 'Consult with certified doctors online via video or chat.',
   },
   {
-    id:3,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
+    id: 3,
+    icon: 'https://t4.ftcdn.net/jpg/02/11/04/53/360_F_211045328_HnemU2NVFNwDWnQtDi5JHeHVhMV1jTOr.jpg  ',
+    title: 'Lab Tests',
+    description: 'Book lab tests and get samples collected from home.',
   },
   {
-    id:4,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
+    id: 4,
+    icon: 'https://applehospital.in/wp-content/uploads/2022/10/helth-checkup-2-768x498.jpg',
+    title: 'Health Packages',
+    description: 'Avail comprehensive health checkup packages at discounted rates.',
   },
   {
-    id:5,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
+    id: 5,
+    icon: 'https://5.imimg.com/data5/SELLER/Default/2024/3/405631831/UC/AH/NK/127997/first-aid-emergency-kit.jpg',
+    title: 'Emergency Care',
+    description: '24/7 emergency care services with ambulance support.',
   },
-  {
-    id:6,
-    imageUrl:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',
-    title:'services'
-  },
-]
+];
 
 const HomeScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -201,8 +201,6 @@ const getPhone =()=>{
                 style={styles.modal}
             >
                 <View style={styles.modalContent}>
-                    
-
                     <TouchableOpacity style={styles.optionButton} onPress={openCamera}>
                         <Icon name="photo-camera" size={24} color="#4CAF50" />
                         <Text style={styles.optionText}>Camera</Text>
@@ -251,11 +249,12 @@ const styles = StyleSheet.create({
     flex:1,
   },
   offerContainer:{
-    backgroundColor:'#edf7ef',
+    backgroundColor:'#ffffff',
     height:280,
     marginHorizontal:20,
-    borderRadius:10,
+    borderRadius:20,
     marginTop:20,
+
   },
   offerOrderContainer:{
     height:'auto',
@@ -286,7 +285,7 @@ const styles = StyleSheet.create({
     marginLeft:17,
   },
   Serviescontainer:{
-    backgroundColor:'#edf7ef',
+    backgroundColor:'#ffffff',
     height:200,
     marginHorizontal:20,
     borderRadius:10,
@@ -297,7 +296,7 @@ const styles = StyleSheet.create({
     margin: 0,
 },
 modalContent: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     paddingVertical: 20,
     paddingHorizontal: 25,
     borderTopLeftRadius: 20,
