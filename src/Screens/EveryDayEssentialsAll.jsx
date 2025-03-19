@@ -7,20 +7,18 @@ import Modal from 'react-native-modal';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDegine from 'react-native-vector-icons/MaterialIcons'; 
-import Slider from '@react-native-community/slider';
-
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'; 
 
 const EveryDayEssentialsAll = ({ route }) => {
     const navigation = useNavigation();
     const previousScreen = route.params?.previousScreen || 'Home';
     const [isModelVisiable,setModelVisiable]=useState(false)
     const [isFilterModel,setFilterModel]=useState(true)
-    const [priceRange, setPriceRange] = useState([0, 15]); 
+    const [priceRange, setPriceRange] = useState([0, 50]);
 
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedFilter, setSelectedFilter] = useState('All');
-
-
 
     const toggleMode=()=>{
         setModelVisiable(!isModelVisiable)
@@ -98,15 +96,19 @@ const EveryDayEssentialsAll = ({ route }) => {
         { id: '5', title: '5', value: 5 },
     ];
 
+    const priceRanges = [
+        { id: '1', title: '$0 - $5', min: 0, max: 5 },
+        { id: '2', title: '$5 - $10', min: 5, max: 10 },
+        { id: '3', title: '$10 - $15', min: 10, max: 15 },
+        { id: '4', title: 'All', min: 0, max: 15 }, 
+    ];
+
     useLayoutEffect(()=>{
         navigation.getParent()?.setOptions({
             tabBarStyle:{display:'none'}
         })
     })
 
-    
-
-   
     const filteredItems = items.filter(item => 
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
         (selectedFilter === 'All' || item.category === selectedFilter)
@@ -165,10 +167,9 @@ const EveryDayEssentialsAll = ({ route }) => {
                         >
                             <View style={{height:600,backgroundColor:'#f5f5f5',borderTopLeftRadius:40,borderTopRightRadius:40,paddingLeft:20,paddingTop:20,paddingRight:20}}>
                                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                                    <TouchableOpacity style={{flexDirection:'row',alignItems:'center',}} onPress={()=>{toggleMode()}}>
+                                    <TouchableOpacity style={{flexDirection:'row',alignItems:'center',}} onPress={()=>{filterMode()}}>
                                         <Entypo name="chevron-left" size={30} />
                                         <Text style={{fontWeight:700,fontSize:25,marginLeft:10}}>Filter</Text>
-                                        
                                     </TouchableOpacity>
                                     <TouchableOpacity>
                                         <Text style={{justifyContent:'flex-end',color:"#666",fontSize:17,marginRight:10,marginTop:10,fontWeight:700}}>Reset</Text>
@@ -232,24 +233,29 @@ const EveryDayEssentialsAll = ({ route }) => {
                                 <Text style={{fontSize:20,fontWeight:700,marginLeft:10,letterSpacing:1.5}}>
                                     Price
                                 </Text>
-                                <Text style={styles.filterLabel}>Price Range: ${priceRange[0]} - ${priceRange[1]}</Text>
-                                    <View style={styles.sliderContainer}>
-                                        <Slider
-                                            style={styles.slider}
-                                            minimumValue={0}
-                                            maximumValue={15}
-                                            step={1}
-                                            value={priceRange[1]}
-                                            onValueChange={(value) => setPriceRange([priceRange[0], value])}
-                                            minimumTrackTintColor="#FF6B6B"
-                                            thumbTintColor="#FF6B6B"
-                                        />
-                                    </View>
+                                <View style={styles.sliderContainer}>
+                                    <MultiSlider
+                                        values={[priceRange[0], priceRange[1]]}
+                                        sliderLength={300}
+                                        min={0}
+                                        max={50}
+                                        step={1}
+                                        onValuesChange={(values) => setPriceRange(values)}
+                                        allowOverlap={false}
+                                        snapped
+                                        selectedStyle={styles.selectedTrack}
+                                        trackStyle={styles.track}
+                                        customMarker={(props) => (
+                                            <View style={styles.customMarker}>
+                                                <FontAwesome6 name="location-pin" size={20} style={{marginBottom:0,marginLeft:0,color:'#b3aea3'}}/>
+                                                <Text style={styles.markerLabel}>${props.currentValue}</Text>
+                                            </View>
+                                        )}
+                                    />
+                                </View>
                                 <TouchableOpacity style={{width:'100%',height:60,backgroundColor:'#1c1b1a',alignItems:'center',marginTop:40,borderRadius:30,justifyContent:'center',marginBottom:20}}>
                                     <Text style={{color:'white',fontSize:20,fontWeight:700}}>Apply</Text>
                                 </TouchableOpacity>
-                                
-
                             </View>
                         </Modal>
                         </View>
@@ -370,18 +376,18 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         marginBottom:10,
         width:'75%'
-      },
-      searchIcon: {
+    },
+    searchIcon: {
         marginRight: 10,
-      },
-      input: {
+    },
+    input: {
         flex: 1,
         fontSize: 16,
         color: '#333',
-      },
-      filterIcon: {
+    },
+    filterIcon: {
         marginLeft: 10,
-      },
+    },
     filterContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -455,20 +461,31 @@ const styles = StyleSheet.create({
         justifyContent:'flex-end',
         margin:0
     },
-    filterLabel: {
-        fontSize: 18,
-        fontWeight: '700',
-        color: '#333',
-        marginBottom: 10,
-        letterSpacing: 1,
-    },
     sliderContainer: {
         width: '100%',
-        marginBottom: 20,
+        alignItems: 'center',
+        marginTop:20,
+    
     },
-    slider: {
-        width: '100%',
-        height: 40,
+    selectedTrack: {
+        backgroundColor: '#3d3c3a', 
+        height: 10,
+       
+    },
+    track: {
+        backgroundColor: '#b3b2b0', 
+        height: 10,
+        borderRadius: 10,
+    },
+    customMarker: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    
+    markerLabel: {
+        marginTop: 20,
+        fontSize: 19,
+        color: '#333',
     },
     
 });
