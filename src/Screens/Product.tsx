@@ -17,7 +17,7 @@ import Folled from '../Components/Folled';
 const Product = () => {
   return (
     <LinearGradient 
-        colors={['#e4f4f0','#89eaa9']} 
+        colors={['#ffffff','#ffffff']} 
         style={styles.container}
         locations={[0.7,1.0]}
         >
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flex:1,
   },
   offerContainer:{
-    backgroundColor:'#edf7ef',
+    backgroundColor:'#ffffff',
     height:'auto',
     marginHorizontal:20,
     borderRadius:10,

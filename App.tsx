@@ -19,6 +19,9 @@ import NotificationScreen from './src/Screens/NotificationScreen';
 import CartScreen from './src/Screens/CartScreen';
 import ServicesScreen from './src/Screens/ServicesScreen';
 import EveryDayEssentialsAll from './src/Screens/EveryDayEssentialsAll';
+import GeneralTestAll from './src/Screens/GeneralTestAll';
+import TestAll from './src/Screens/TestAll';
+import AllCategoryAll from './src/Screens/AllCategoryAll';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,8 +29,7 @@ const Stack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <Stack.Navigator initialRouteName='EveryDayEssentialsAll'>
-      
+    <Stack.Navigator >
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -48,9 +50,21 @@ const HomeStackScreen = () => {
         <Stack.Screen name="EveryDayEssentialsAll" component={EveryDayEssentialsAll}
         options={{
           headerShown:false
+        }}/>
+        <Stack.Screen name="GeneralTestAll" component={GeneralTestAll} 
+        options={{
+          headerShown:false
         }}
         />
-        
+        <Stack.Screen name="TestAll" component={TestAll} 
+        options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="AllCategory" component={AllCategoryAll}
+         options={{
+          headerShown:false
+        }}/>
+          
   </Stack.Navigator>
   );
 };
@@ -61,7 +75,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Doctors"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

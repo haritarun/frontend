@@ -4,32 +4,32 @@ import React from 'react'
 
 const Data=[
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://www.cabotcorp.com/-/media/images/interface/body-images/solutions/applications/photo-pharmaceuticals-and-personal-care-tablet-production.jpg?rev=607bbed7d41c4916adf55b6d7a591a60',
+        title:'Personal Care'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://png.pngtree.com/thumb_back/fw800/background/20220921/pngtree-reviving-school-vibes-essential-stationeries-on-white-wooden-backdrop-photo-image_33875726.jpg',
+        title:'Stationery'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://media.gettyimages.com/id/521704389/photo/prescription-drugs.jpg?s=612x612&w=gi&k=20&c=s63GdoBdjfnl1hTZ1-Fjdij-tsb6rF1DbfStvjHX15o=',
+        title:'usehold'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://bakson-production.s3.ap-south-1.amazonaws.com/pub/media/catalog/product/cache/d4bd18e21a1798ce1454755b1950e778/f/g/fgms100049_1.jpg',
+        title:'Baby Care'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://m.media-amazon.com/images/I/81jhz7-iyfL.jpg',
+        title:'Skin Care'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://5.imimg.com/data5/SELLER/Default/2023/6/320341546/EK/CU/OD/188947807/women-care-tablet.jpg',
+        title:'Women Care'
     },
     {
-        imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-        title:'shop'
+        imageUrl:'https://media.post.rvohealth.io/wp-content/uploads/sites/3/2022/05/eye-health-vitamins-thumb.jpg',
+        title:'Vitamins'
     },
     
 ]
@@ -58,7 +58,7 @@ const EveryDayEsstensial = () => {
                     return(
                         <View style={{flexDirection:'column',marginTop:29}}>
                             <Image source={{uri:eachItem.imageUrl,height:100,width:100}} style={{borderRadius:20}}/>
-                            <Text style={{marginLeft:10}}>{eachItem.title}</Text>
+                            <Text style={{marginLeft:10,marginTop:10}}>{eachItem.title}</Text>
                         </View>
                     )
                 })

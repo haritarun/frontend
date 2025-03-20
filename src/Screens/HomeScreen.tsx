@@ -132,7 +132,7 @@ const getPhone =()=>{
 
   return (
     <LinearGradient 
-    colors={['#e4f4f0','#89eaa9']} 
+    colors={['#ffffff','#ffffff']} 
     style={styles.container}
     locations={[0.7,1.0]}
     >
@@ -233,7 +233,7 @@ const getPhone =()=>{
         
         <Offer />
         <Brand />
-        <GeneralTest />
+        <GeneralTest item={'Home'}/>
         <HealthArticals />
         <Folled />
         </ScrollView>

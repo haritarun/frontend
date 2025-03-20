@@ -10,11 +10,11 @@ import AntDegine from 'react-native-vector-icons/MaterialIcons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'; 
 
-const EveryDayEssentialsAll = () => {
+const GeneralTestAll = ({route}) => {
     const navigation = useNavigation();
-    const previousScreen =  'Home';
+    const {previousScreen} = route.params||'Home';
     const [isModelVisiable,setModelVisiable]=useState(false)
-const [isFilterModel,setFilterModel]=useState(false)
+    const [isFilterModel,setFilterModel]=useState(false)
     const [priceRange, setPriceRange] = useState([0, 50]);
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -96,7 +96,6 @@ const [isFilterModel,setFilterModel]=useState(false)
         { id: '5', title: '5', value: 5 },
     ];
 
-
     useLayoutEffect(()=>{
         navigation.getParent()?.setOptions({
             tabBarStyle:{display:'none'}
@@ -136,7 +135,7 @@ const [isFilterModel,setFilterModel]=useState(false)
                         color={'#333'} 
                         onPress={() => navigation.navigate(previousScreen)} 
                     />
-                    <Text style={styles.headerTitle}>Everyday Essentials</Text>
+                    <Text style={styles.headerTitle}>General Test All</Text>
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                     <View style={styles.searchContainer}>   
@@ -252,7 +251,7 @@ const [isFilterModel,setFilterModel]=useState(false)
                                 </TouchableOpacity>
                             </View>
                         </Modal>
-                        </View>
+                    </View>
                         <TouchableOpacity style={{height:'auto',width:'auto',backgroundColor:'#f5f5f5',paddingHorizontal: 18,
                             paddingVertical: 15,borderRadius:30,marginLeft:10,marginTop:-6}} onPress={()=>{toggleMode()}}>
                             <Text style={{fontSize:16,color:'#666',fontWeight:700}}>Sort By</Text>
@@ -337,7 +336,7 @@ const [isFilterModel,setFilterModel]=useState(false)
     );
 };
 
-export default EveryDayEssentialsAll;
+export default GeneralTestAll;
 
 const styles = StyleSheet.create({
     container: {

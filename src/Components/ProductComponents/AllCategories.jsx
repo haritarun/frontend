@@ -1,101 +1,136 @@
-import { StyleSheet, Text, View,TouchableOpacity,Image } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-const Data=[
-  {
-      color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+const Data = [
+  { 
+    id: 1, 
+    title: 'Vitamins A-Z', 
+    imageUrl: 'https://i0.wp.com/medika.life/wp-content/uploads/2021/05/Vitamins.jpg?fit=1200%2C856&ssl=1' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 2, 
+    title: 'Glucometers', 
+    imageUrl: 'https://premmedical.in/wp-content/uploads/2021/05/httpspremmedical.inproductaccu-chek-active%E2%80%A6-free-multicolor3.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 3, 
+    title: 'Sports Nutrition', 
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Yd62jT12XD7QNeDePnYF1pBjOkJ0RW3Iaw&s' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 4, 
+    title: 'Adult Diapers', 
+    imageUrl: 'https://vietsingdnd.com/wp-content/uploads/2023/12/20012024-Website-VietsingDND-Anh-bai-viet-TV-12.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 5, 
+    title: 'Ayurvedic Care', 
+    imageUrl: 'https://m.media-amazon.com/images/I/31dJHFzPjeL._AC_UF1000,1000_QL80_.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 6, 
+    title: 'Respiratory Care', 
+    imageUrl: 'https://img.freepik.com/free-vector/respiratory-care-technology-template-vector_53876-119563.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 7, 
+    title: 'Women Care', 
+    imageUrl: 'https://m.media-amazon.com/images/I/71s9AkrXk7L.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 8, 
+    title: 'Diabetic Care', 
+    imageUrl: 'https://m.media-amazon.com/images/I/71s9AkrXk7L.jpg' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 9, 
+    title: 'Mother and Baby Care', 
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYfEOdGcdoXf-iWljW4BMtXrrE3dasyTeNRQ&s' 
   },
-  {
-    color:'#c5d1cd',
-      imageUrl:'https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg',
-      title:'shop'
+  { 
+    id: 10, 
+    title: 'Homeopathy Care', 
+    imageUrl: 'https://www.shutterstock.com/image-photo/homeopathic-medication-tablets-bottle-on-260nw-113505316.jpg' 
   },
-  
-] 
-
+];
 const AllCategories = () => {
+  const navigation = useNavigation()
   return (
-    <>
-      <View style={styles.offerContainer}>
-      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-          <Text style={{color:"#456b52",fontWeight:700,fontSize:17}}>All Categories</Text>
-          <TouchableOpacity >
-            <Text style={{fontSize:15,fontStyle:'normal',color:'#07666d',fontWeight:600}}>View All</Text>
-          </TouchableOpacity>
+    <View style={styles.offerContainer}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>All Categorys</Text>
+        <TouchableOpacity onPress={()=>{navigation.navigate("Doctors",{screen:'AllCategory'})}}>
+          <Text style={styles.viewAllText}>See More</Text>
+        </TouchableOpacity>
       </View>
-      <View style={{justifyContent:'space-between',alignItems:'center',flexDirection:'row',flexWrap:'wrap'}}>
-        {
-                    Data.map(eachItem=>{
-                        return(
-                            <View style={{flexDirection:'column',marginTop:29}}>
-                                <TouchableOpacity style={{borderRadius:20,borderWidth:2,height:110,width:110,justifyContent:'center',alignItems:'center',marginHorizontal:2,borderColor:eachItem.color}}>
-                                  <Image source={{uri:eachItem.imageUrl,height:95,width:95}} style={{borderRadius:15}}/>
-                                </TouchableOpacity>
-                                <Text style={{marginLeft:10,marginTop:5,fontSize:15,fontWeight:600}}>{eachItem.title}</Text>
-                            </View>
-                        )
-                    })
-                }
-            </View>
+      <View style={styles.cardContainer}>jpg
+        {Data.map((item) => (
+          <TouchableOpacity key={item.id} style={styles.card}>
+            <Image
+              source={{ uri: item.imageUrl }}
+              style={styles.cardImage}
+              resizeMode="contain"
+            />
+            <Text style={styles.cardTitle}>{item.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
-    
-    </>
-  )
-}
+  );
+};
 
-export default AllCategories
+export default AllCategories;
 
 const styles = StyleSheet.create({
-  offerContainer:{
-    backgroundColor:'#edf7ef',
-    height:'auto',
-    marginHorizontal:20,
-    borderRadius:10,
-    marginTop:20,
-    paddingHorizontal:17,
-    paddingTop:20, 
-    
-},
-})
+  offerContainer: {
+    backgroundColor: '#fff',
+    marginHorizontal: 15,
+    marginTop: 20,
+    padding: 15,
+    borderRadius: 15,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  headerText: {
+    color: '#1a3c34',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  viewAllText: {
+    color: '#007a7a',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  cardContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  card: {
+    width: '48%', 
+    height: 180,
+    backgroundColor: '#f8faf9',
+    borderRadius: 12,
+    marginBottom: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#e6eceb',
+  },
+  cardImage: {
+    width: 110,
+    height: 110,
+    marginBottom: 10,
+  },
+  cardTitle: {
+    color: '#1a3c34',
+    fontSize: 15,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+});

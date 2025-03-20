@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View,FlatList } from 'react-native'
+import { StyleSheet, Text, View,FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
 import ImageCard from '../HomeScreenComponents/ImageCard'
+import { useNavigation } from '@react-navigation/native'
 
 const brands=[
     {
@@ -36,11 +37,14 @@ const brands=[
   ]
 
 const Test = () => {
+  const navigation = useNavigation()
   return (
     <View style={styles.offerContainer}>
         <View style={{flexDirection:'row',justifyContent:'space-between', }}>
             <Text style={{color:'#456b52',fontSize:18,fontWeight:700}}>Tests</Text>
-            <Text style={{color:'#456b52',fontSize:15,fontWeight:600}}>View All</Text>
+            <TouchableOpacity onPress={()=>{navigation.navigate('Doctors',{screen:'TestAll'})}}>
+              <Text style={{color:'#456b52',fontSize:15,fontWeight:600}}>View All</Text>
+            </TouchableOpacity>
         </View>
         <FlatList 
         data={brands}
@@ -55,7 +59,7 @@ export default Test
 
 const styles = StyleSheet.create({
     offerContainer:{
-        backgroundColor:'#edf7ef',
+        backgroundColor:'#ffffff',
         height:'auto',
         marginHorizontal:20,
         borderRadius:10,

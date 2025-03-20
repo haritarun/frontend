@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 const Data=[
     {
@@ -33,12 +34,13 @@ const Data=[
     
 ]
 
-const GeneralTest = () => {
+const GeneralTest = ({item}) => {
+    const navigation = useNavigation()
   return (
     <View style={styles.offerContainer}>
             <View style={{flexDirection:'row',justifyContent:'space-between',marginTop:20,marginHorizontal:10}}>
                 <Text style={{fontSize:17,fontWeight:700,color:'#456b52'}}>General Test</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navigation.navigate('Doctors',{screen:'GeneralTestAll',params:{previousScreen:item}})}}>
                     <Text style={{fontSize:14,color:'#2c6d68',fontWeight:500}}>View All</Text>
                 </TouchableOpacity>
             </View>

@@ -17,7 +17,7 @@ import Folled from '../Components/Folled'
 const Account = () => {
   return (
     <LinearGradient 
-      colors={['#e4f4f0','#89eaa9']} 
+      colors={['#ffffff','#ffffff']} 
       style={styles.container}
       locations={[0.7,1.0]}
     > 

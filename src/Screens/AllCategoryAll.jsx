@@ -10,11 +10,12 @@ import AntDegine from 'react-native-vector-icons/MaterialIcons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'; 
 
-const EveryDayEssentialsAll = () => {
+const AllCategoreAll = () => {
+    
     const navigation = useNavigation();
     const previousScreen =  'Home';
     const [isModelVisiable,setModelVisiable]=useState(false)
-const [isFilterModel,setFilterModel]=useState(false)
+    const [isFilterModel,setFilterModel]=useState(false)
     const [priceRange, setPriceRange] = useState([0, 50]);
 
     const [searchQuery, setSearchQuery] = useState('');
@@ -134,9 +135,9 @@ const [isFilterModel,setFilterModel]=useState(false)
                         name="arrowleft" 
                         size={24} 
                         color={'#333'} 
-                        onPress={() => navigation.navigate(previousScreen)} 
+                        onPress={() => navigation.navigate('Product')} 
                     />
-                    <Text style={styles.headerTitle}>Everyday Essentials</Text>
+                    <Text style={styles.headerTitle}>All Category</Text>
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                     <View style={styles.searchContainer}>   
@@ -196,7 +197,7 @@ const [isFilterModel,setFilterModel]=useState(false)
                                 >
                                     <View style={styles.filterContainer}>
                                         {
-                                            ['Personal Care', 'Baby Care','Skin Care','usehold', 'Stationery'].map(eachItem=>(
+                                            ['Vitamins A-Z','Glucometers','Sports Nutrition','Adult Diapers','Ayurvedic Care','Respiratory Care','Women Care','Diabetic Care','Mother and Baby Care','Homeopathy'].map(eachItem=>(
                                                 <TouchableOpacity style={{height:50,width:'auto',backgroundColor:'#f0f0f0',paddingHorizontal: 18,
                                                     paddingVertical: 15,borderRadius:30,marginLeft:10,marginTop:15}} >
                                                     <Text style={{fontSize:16,color:'#666',fontWeight:700}}>{eachItem}</Text>
@@ -305,7 +306,7 @@ const [isFilterModel,setFilterModel]=useState(false)
                     showsHorizontalScrollIndicator={false}
                 >
                     <View style={styles.filterContainer}>
-                        {['All', 'Personal Care', 'Stationery', 'usehold','Baby Care','Skin Care'].map(category => (
+                        {['All', 'Vitamins A-Z','Glucometers','Sports Nutrition','Adult Diapers','Ayurvedic Care','Respiratory Care','Women Care','Diabetic Care','Mother and Baby Care','Homeopathy'].map(category => (
                             <TouchableOpacity 
                                 key={category}
                                 style={[
@@ -337,7 +338,7 @@ const [isFilterModel,setFilterModel]=useState(false)
     );
 };
 
-export default EveryDayEssentialsAll;
+export default AllCategoreAll;
 
 const styles = StyleSheet.create({
     container: {

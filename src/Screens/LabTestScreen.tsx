@@ -99,7 +99,7 @@ const LabTestScreen = () => {
 
   return (
     <LinearGradient 
-        colors={['#e4f4f0','#89eaa9']} 
+        colors={['#ffffff','#ffffff']} 
         style={styles.container}
         locations={[0.7,1.0]}
         >
@@ -129,8 +129,6 @@ const LabTestScreen = () => {
                                         style={styles.modal}
                                     >
                                         <View style={styles.modalContent}>
-                                            
-                        
                                             <TouchableOpacity style={styles.optionButton} onPress={openCamera}>
                                                 <Icon name="photo-camera" size={24} color="#4CAF50" />
                                                 <Text style={styles.optionText}>Camera</Text>
@@ -139,14 +137,12 @@ const LabTestScreen = () => {
                                             <TouchableOpacity style={styles.optionButton} onPress={openGallery}>
                                                 <Icon name="photo-library" size={24} color="#2196F3" />
                                                 <Text style={styles.optionText}>Gallery</Text>
-                                            </TouchableOpacity>
-                        
-                                            
+                                            </TouchableOpacity>   
                                         </View>
                                     </Modal>
                       </View>
         </View>
-        <GeneralTest />
+        <GeneralTest item={'LabTest'}/>
         <LabTestSwiper />
         <HealthCheckUp />
         <LabChat />
@@ -167,7 +163,7 @@ const styles = StyleSheet.create({
     flex:1,
   },
   offerContainer:{
-    backgroundColor:'#edf7ef',
+    backgroundColor:'#ffffff',
     height:'auto',
     marginHorizontal:20,
     borderRadius:10,

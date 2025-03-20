@@ -71,7 +71,7 @@ export default HealthCheckUp;
 
 const styles = StyleSheet.create({
   offerContainer: {
-    backgroundColor: '#d2ede1',
+    backgroundColor: '#ffffff',
     height: 'auto',
     marginHorizontal: 20,
     borderRadius: 10,
