@@ -10,7 +10,7 @@ import AntDegine from 'react-native-vector-icons/MaterialIcons';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'; 
 
-const EveryDayEssentialsAll = () => {
+const SkinCareAll = () => {
     const navigation = useNavigation();
     const previousScreen =  'Home';
     const [isModelVisiable,setModelVisiable]=useState(false)
@@ -134,9 +134,9 @@ const [isFilterModel,setFilterModel]=useState(false)
                         name="arrowleft" 
                         size={24} 
                         color={'#333'} 
-                        onPress={() => navigation.navigate(previousScreen)} 
+                        onPress={() => navigation.navigate('Product')} 
                     />
-                    <Text style={styles.headerTitle}>Everyday Essentials</Text>
+                    <Text style={styles.headerTitle}>Skin Care</Text>
                 </View>
                 <View style={{flexDirection:'row',alignItems:'center'}}>
                     <View style={styles.searchContainer}>   
@@ -257,7 +257,7 @@ const [isFilterModel,setFilterModel]=useState(false)
                             paddingVertical: 15,borderRadius:30,marginLeft:10,marginTop:-6}} onPress={()=>{toggleMode()}}>
                             <Text style={{fontSize:16,color:'#666',fontWeight:700}}>Sort By</Text>
                         </TouchableOpacity>
-                </View>
+                    </View>
                     <Modal
                         isVisible={isModelVisiable}
                         onBackdropPress={toggleMode}
@@ -337,7 +337,7 @@ const [isFilterModel,setFilterModel]=useState(false)
     );
 };
 
-export default EveryDayEssentialsAll;
+export default SkinCareAll;
 
 const styles = StyleSheet.create({
     container: {

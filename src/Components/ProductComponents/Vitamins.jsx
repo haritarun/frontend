@@ -1,81 +1,82 @@
-import { View, Text, StyleSheet, ScrollView,TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView,TouchableOpacity, Dimensions,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React from 'react'
+import React,{useState} from 'react'
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 
-const vitamins = [
-    {
-      id: 1,
-      name: 'Vitamin A',
-      colors: ['#fbeb95', '#FFA500'], 
-      icon: 'eye',
-      content: 'Supports vision, immune function, and skin health.',
-    },
-    {
-      id: 2,
-      name: 'Vitamin B',
-      colors: ['#87CEEB', '#4682B4'], 
-      icon: 'lightning-bolt',
-      content: 'Boosts energy levels and brain function.',
-    },
-    {
-      id: 3,
-      name: 'Vitamin C',
-      colors: ['#FF6347', '#FF4500'], 
-      icon: 'shield-sun',
-      content: 'Enhances immunity and collagen production.',
-    },
-    {
-      id: 4,
-      name: 'Vitamin D',
-      colors: ['#FFA07A', '#FF7F50'],
-      icon: 'weather-sunny',
-      content: 'Promotes bone health and calcium absorption.',
-    },
-    {
-      id: 5,
-      name: 'Vitamin E',
-      colors: ['#98FB98', '#32CD32'], 
-      icon: 'leaf',
-      content: 'Protects cells from oxidative damage.',
-    },
-    {
-      id: 6,
-      name: 'Vitamin K',
-      colors: ['#DDA0DD', '#BA55D3'],
-      icon: 'water',
-      content: 'Essential for blood clotting and bone health.',
-    },
+
+
+const Data = [
+  { 
+    id: 1, 
+    title: 'Vitamins A', 
+    imageUrl: 'https://i0.wp.com/medika.life/wp-content/uploads/2021/05/Vitamins.jpg?fit=1200%2C856&ssl=1' 
+  },
+  { 
+    id: 2, 
+    title: 'Vitamins B', 
+    imageUrl: 'https://premmedical.in/wp-content/uploads/2021/05/httpspremmedical.inproductaccu-chek-active%E2%80%A6-free-multicolor3.jpg' 
+  },
+  { 
+    id: 3, 
+    title: 'Vitamins C', 
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6Yd62jT12XD7QNeDePnYF1pBjOkJ0RW3Iaw&s' 
+  },
+  { 
+    id: 4, 
+    title: 'Vitamins D', 
+    imageUrl: 'https://vietsingdnd.com/wp-content/uploads/2023/12/20012024-Website-VietsingDND-Anh-bai-viet-TV-12.jpg' 
+  },
+  { 
+    id: 5, 
+    title: 'Vitamins E', 
+    imageUrl: 'https://m.media-amazon.com/images/I/31dJHFzPjeL._AC_UF1000,1000_QL80_.jpg' 
+  },
+  { 
+    id: 6, 
+    title: 'Vitamins F', 
+    imageUrl: 'https://img.freepik.com/free-vector/respiratory-care-technology-template-vector_53876-119563.jpg' 
+  },
+  { 
+    id: 7, 
+    title: 'Vitamins K', 
+    imageUrl: 'https://m.media-amazon.com/images/I/71s9AkrXk7L.jpg' 
+  },
+  { 
+    id: 8, 
+    title: 'Vitamins P', 
+    imageUrl: 'https://m.media-amazon.com/images/I/71s9AkrXk7L.jpg' 
+  },
+  { 
+    id: 9, 
+    title: 'Vitamins A', 
+    imageUrl: 'https://i0.wp.com/medika.life/wp-content/uploads/2021/05/Vitamins.jpg?fit=1200%2C856&ssl=1' 
+  },
+  
 ];
   
-
-  const { width } = Dimensions.get('window');
-
 const Vitamins = () => {
+  const [isShow,setShow]= useState(false)
+  const intialShow = 4
+  const filterData = isShow ? Data : Data.slice(0,intialShow)
   return (
     <View style={styles.offerContainer}>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <Text style={{color:"#456b52",fontWeight:700,fontSize:17}}>Vitamins</Text>
-            <TouchableOpacity >
-                <Text style={{fontSize:15,fontStyle:'normal',color:'#07666d',fontWeight:600}}>View All</Text>
+            <TouchableOpacity onPress={()=>setShow(!isShow)}>
+                <Text style={{fontSize:15,fontStyle:'normal',color:'#07666d',fontWeight:600}}>{isShow ? 'Show Less' : 'Show More'}</Text>
             </TouchableOpacity>
         </View>
-    <Swiper style={styles.wrapper} showsButtons={false} autoplay={true} loop={true} autoplayTimeout={3} showsPagination={false}>
-    {vitamins.map((vitamin) => (
-        <LinearGradient
-          key={vitamin.id}
-          colors={vitamin.colors}
-          style={styles.card}
-          start={{ x: 0, y: 0 }}
-          end={{ x:1, y: 1 }}
-        >
-          <Icon name={vitamin.icon} size={40} color="#FFF" style={styles.icon} />
-          <Text style={styles.vitaminName}>{vitamin.name}</Text>
-          <Text style={styles.vitaminContent}>{vitamin.content}</Text>
-        </LinearGradient>
-      ))}
-        </Swiper>
+        <View style={{flexWrap:'wrap',justifyContent:'space-between',flexDirection:'row',marginHorizontal:20}}>
+            {
+              filterData.map(eachItem=>(
+                  <TouchableOpacity style={{width:'28%',marginTop:40,justifyContent:'center',alignItems:'center'}}>
+                    <Image source={{uri:eachItem.imageUrl,height:100,width:'100%'}} style={{borderRadius:20}}/>
+                    <Text style={{textAlign:'center',marginTop:10,fontWeight:'bold'}}>{eachItem.title}</Text>
+                  </TouchableOpacity>
+              ))
+            }
+        </View>
     </View>
   )
 }
@@ -84,21 +85,15 @@ export default Vitamins
 
 const styles = StyleSheet.create({
     offerContainer:{
-        backgroundColor:'#edf7ef',
+        backgroundColor:'ffffff',
         height:'auto',
-        marginHorizontal:20,
+        
         borderRadius:10,
         marginTop:20,
         paddingHorizontal:17,
         paddingTop:20,
     },
-      card: {
-        width: width * 0.70,
-        borderRadius: 20,
-        padding: 20,
-        alignItems:'center',
-        marginLeft:30,
-      },
+      
       vitaminName: {
         fontSize: 22,
         fontWeight: 'bold',
@@ -119,5 +114,6 @@ const styles = StyleSheet.create({
       wrapper:{
         height:200,
         marginTop:20
-      }
+      },
+      
 })

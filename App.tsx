@@ -22,6 +22,11 @@ import EveryDayEssentialsAll from './src/Screens/EveryDayEssentialsAll';
 import GeneralTestAll from './src/Screens/GeneralTestAll';
 import TestAll from './src/Screens/TestAll';
 import AllCategoryAll from './src/Screens/AllCategoryAll';
+import SkinCareAll from './src/Screens/SkinCareAll';
+import OrderScreen from './src/Screens/OrderScreen';
+import Help from './src/Screens/Help';
+import FAQAll from './src/Screens/FAQAll';
+import AboutUs from './src/Screens/AboutUs';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +34,7 @@ const Stack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <Stack.Navigator >
+    <Stack.Navigator initialRouteName='AboutUs'>
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -64,7 +69,31 @@ const HomeStackScreen = () => {
          options={{
           headerShown:false
         }}/>
-          
+        <Stack.Screen name="SkinCare" component={SkinCareAll}
+         options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="OrderScreen" component={OrderScreen}
+         options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="Help" component={Help}
+         options={{
+          headerShown:false
+        }}/>
+        <Stack.Screen name="FAQAll" component={FAQAll}
+        options={{
+          headerShown:false
+        }}
+        />
+        <Stack.Screen name="AboutUs" component={AboutUs}
+        options={{
+          headerShown:false
+        }}
+        />
+
+
+
   </Stack.Navigator>
   );
 };
@@ -75,7 +104,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Doctors"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

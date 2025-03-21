@@ -9,8 +9,9 @@ import EveryDayEsstensial from '../Components/HomeScreenComponents/EveryDayEsste
 import Brand from '../Components/HomeScreenComponents/Brand';
 import Vitamins from '../Components/ProductComponents/Vitamins';
 import AllCategories from '../Components/ProductComponents/AllCategories';
-import Support from '../Components/ProductComponents/Support';
+
 import Folled from '../Components/Folled';
+import SkinCare from '../Components/ProductComponents/SkinCare';
 
 
 
@@ -43,7 +44,7 @@ const Product = () => {
             <EveryDayEsstensial />
             <Brand />
             <Vitamins />
-            <Support />
+            <SkinCare />
             <Folled />
           </ScrollView>
     </LinearGradient>

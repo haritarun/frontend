@@ -23,7 +23,7 @@ export default Profile
 
 const styles = StyleSheet.create({
     offerContainer:{
-        backgroundColor:'#edf7ef',
+        backgroundColor:'#ffffff',
         height:'auto',
         marginHorizontal:20,
         borderRadius:10,

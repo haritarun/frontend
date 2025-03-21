@@ -54,6 +54,7 @@ const Data = [
     imageUrl: 'https://www.shutterstock.com/image-photo/homeopathic-medication-tablets-bottle-on-260nw-113505316.jpg' 
   },
 ];
+
 const AllCategories = () => {
   const navigation = useNavigation()
   return (
@@ -64,7 +65,7 @@ const AllCategories = () => {
           <Text style={styles.viewAllText}>See More</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.cardContainer}>jpg
+      <View style={styles.cardContainer}>
         {Data.map((item) => (
           <TouchableOpacity key={item.id} style={styles.card}>
             <Image
