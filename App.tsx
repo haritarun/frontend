@@ -27,6 +27,8 @@ import OrderScreen from './src/Screens/OrderScreen';
 import Help from './src/Screens/Help';
 import FAQAll from './src/Screens/FAQAll';
 import AboutUs from './src/Screens/AboutUs';
+import ServicesAll from './src/Screens/ServicesAll';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +36,8 @@ const Stack = createStackNavigator();
 
 const HomeStackScreen = () => {
   return (
-    <Stack.Navigator initialRouteName='AboutUs'>
+
+    <Stack.Navigator >
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -91,10 +94,14 @@ const HomeStackScreen = () => {
           headerShown:false
         }}
         />
+        <Stack.Screen name="ServicesAll" component={ServicesAll}
+        options={{
+          headerShown:false
+        }}
+        />
+        
+    </Stack.Navigator>
 
-
-
-  </Stack.Navigator>
   );
 };
 
@@ -104,7 +111,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Doctors"
+        initialRouteName="Account"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

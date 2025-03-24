@@ -10,7 +10,8 @@ const Services = ({data}) => {
       <TouchableOpacity style={{flexDirection:'row',marginTop:20,marginLeft:20}} onPress={() => {
         navigation.navigate('Doctors', {
           screen: 'ServicesScreen',
-          params: { title: data.title }, 
+          params: { title:data.title,previousScreen:'Home'}, 
+          
         });
       }} >
         <View style={{flexDirection:'column',alignItems:'center'}}>

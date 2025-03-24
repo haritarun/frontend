@@ -1,5 +1,5 @@
 import React,{useState,useLayoutEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image ,Alert} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image ,Alert, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -235,6 +235,8 @@ const Data = [
 
 const ServicesScreen = ({ route }) => {
   const navigation = useNavigation();
+  const {previousScreen} = route.params || 'Home'
+ 
   const {title} = route.params 
   const [selectedId,setSelected]=useState(null)
   
@@ -278,7 +280,7 @@ const getSelected=(id)=>{
                         size={20} 
                         color={'gray'} 
                         style={{ fontWeight: 700 }} 
-                        onPress={() => navigation.navigate('Home')} 
+                        onPress={() => navigation.navigate(previousScreen)} 
                     />
                     <Text style={styles.title}>Store</Text>
                     </View>

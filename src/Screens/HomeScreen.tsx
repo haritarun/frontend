@@ -113,7 +113,7 @@ const getPhone =()=>{
     });
   };
 
-  // Open Gallery
+  
   const openGallery = () => {
     const options = {
       mediaType: 'photo',
@@ -222,7 +222,7 @@ const getPhone =()=>{
           <FlatList
             data={Data}
             renderItem={({ item }) => <Services data={item} /> }
-            keyExtractor={(item) => item.id}
+            
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
