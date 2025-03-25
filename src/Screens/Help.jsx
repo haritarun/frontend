@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView,Linking,Alert } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
@@ -6,20 +6,42 @@ import { useNavigation } from '@react-navigation/native';
 const Help = () => {
   const navigation = useNavigation();
 
+
   useLayoutEffect(() => {
     navigation.getParent()?.setOptions({
       tabBarStyle: { display: 'none' },
     });
+
   }, [navigation]);
 
+
+  const getContactSupport =()=>{
+    const phoneNumber = '+919010144168'
+    const url = `tel:${phoneNumber}`
+   
+    Linking.canOpenURL(url)
+      .then((Supported)=>{
+        if (Supported){
+          Linking.openURL(url)
+        }
+        else{
+          Alert.alert("App Not Intalled In This Device")
+        }
+      })
+      .catch((err)=>{
+        Alert.alert("something went wrong",err)
+      })
+  }
+
   const helpOptions = [
-    { id: 1, title: 'FAQs', icon: 'questioncircleo', onPress: () => navigation.navigate('FAQ') },
-    { id: 2, title: 'Contact Support', icon: 'customerservice', onPress: () => navigation.navigate('ContactSupport') },
-    { id: 3, title: 'Emergency Numbers', icon: 'phone', onPress: () => navigation.navigate('Emergency') },
-    { id: 4, title: 'App Guide', icon: 'book', onPress: () => navigation.navigate('AppGuide') },
+    { id: 1, title: 'FAQs', icon: 'questioncircleo', onPress: () =>navigation.navigate('Doctors',{screen:'FAQAll',params:{previousScreen:'Help'}}) },
+    { id: 2, title: 'Contact Support', icon: 'customerservice', onPress: () => {getContactSupport()} },
+    { id: 3, title: 'Emergency Numbers', icon: 'phone', onPress: () => navigation.navigate('EmergencyNumber') },
+    { id: 4, title: 'App Guide', icon: 'book', onPress: () => navigation.navigate('Doctors',{screen:'Guide'}) },
     { id: 5, title: 'Lab Tests', icon: 'gitlab',onPress:()=>navigation.navigate('LabTestQuesition')},
     { id: 5, title: 'Chat With Us', icon: 'wechat',onPress:()=>navigation.navigate('LabTestQuesition')}
   ];
+
 
   return (
     <View style={styles.container}>

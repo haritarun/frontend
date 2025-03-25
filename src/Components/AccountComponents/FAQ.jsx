@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 const FAQ = () => {
   const navigation = useNavigation()
   return (
-    <TouchableOpacity style={styles.offerContainer} onPress={()=>{navigation.navigate('Doctors',{screen:"FAQAll"})}}>
+    <TouchableOpacity style={styles.offerContainer} onPress={()=>{navigation.navigate('Doctors',{screen:"FAQAll",params:{previousScreen:'Account'}}) } }>
         <View style={{flexDirection:'row',justifyContent:'space-between'}}>
             <View style={{flexDirection:'row'}}>
               <MaterialCommunityIcons  name="chat-question-outline" size={35} color={'#6e716d'} style={{marginTop:5}}/>

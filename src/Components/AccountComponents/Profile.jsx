@@ -21,10 +21,10 @@ const Profile = () => {
   const [showError,setShowError] = useState(false) 
   const [showPicker,setShowPicker] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null);   
-  const [showImageModal,setImageModal] = useState(true)
+  const [showImageModal,setImageModal] = useState(false)
 
  
-  const [isShowModal,setShowModal]=useState(true)
+  const [isShowModal,setShowModal]=useState(false)
 
   const [imageUri, setImageUri] = useState(
     'https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg'
@@ -109,8 +109,8 @@ const Profile = () => {
       mediaType:'photo',
       quality:1,
       saveToPhotos:true
-
     }
+
     launchImageLibrary(options,(response)=>{
       if (response.didCancel){
         console.log('image Will Cancel')
@@ -128,8 +128,6 @@ const Profile = () => {
       }
     })
   }
-
-
 
   return (
     <View style={styles.offerContainer} > 

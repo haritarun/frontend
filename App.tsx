@@ -28,6 +28,8 @@ import Help from './src/Screens/Help';
 import FAQAll from './src/Screens/FAQAll';
 import AboutUs from './src/Screens/AboutUs';
 import ServicesAll from './src/Screens/ServicesAll';
+import EmergencyNumber from './src/Screens/EmergencyNumber';
+import AppGuidScreen from './src/Screens/AppGuidScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -37,7 +39,7 @@ const Stack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
 
-    <Stack.Navigator >
+    <Stack.Navigator initialRouteName='Guide'>
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -99,6 +101,17 @@ const HomeStackScreen = () => {
           headerShown:false
         }}
         />
+        <Stack.Screen name="EmergencyNumber" component={EmergencyNumber}
+        options={{
+          headerShown:false
+        }}
+        />
+        <Stack.Screen name="Guide" component={AppGuidScreen}
+        options={{
+          headerShown:false
+        }}
+        />
+
         
     </Stack.Navigator>
 

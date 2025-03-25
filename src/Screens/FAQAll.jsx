@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,ScrollView,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View ,ScrollView,TouchableOpacity, Alert} from 'react-native'
 import React,{useState,useLayoutEffect} from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
@@ -24,7 +24,7 @@ const data = [
       questions: [
         { id: 1, title: "How do I sign up for a patient account?", answer: "Download the app, tap 'Sign Up,' and fill in your details like name, email, and phone number." },
         { id: 2, title: "What details are needed to register as a user?", answer: "You’ll need your full name, email or phone number, date of birth, and optionally your insurance info." },
-        { id: 3, title: "Why do I need to provide my medical ID or insurance info?", answer: "This helps verify your identity and link your account to healthcare services." },
+        { id: 3, title: "Why do I need to provide my medical ID or insurance info?", answer: "ThFAQAlls verify your identity and link your account to healthcare services." },
         { id: 4, title: "Can I create an account for a family member?", answer: "Yes, use the 'Add Dependent' option in your profile to create a linked account." },
         { id: 5, title: "What if I don’t get the account confirmation SMS?", answer: "Check your spam folder or request a new code via the app. Contact support if it persists." },
         { id: 6, title: "Is there a minimum age to use the app?", answer: "You must be 13 or older to create an account, per our terms of service." }
@@ -75,7 +75,7 @@ const data = [
         { id: 3, title: "Why aren’t my symptom logs saving?", answer: "Ensure you’re online and tap 'Save' after entering details." },
         { id: 4, title: "How do I generate a report from my symptom data?", answer: "In 'Symptoms,' select 'Generate Report' and choose a time range." },
         { id: 5, title: "Can I share my symptom log with my healthcare provider?", answer: "Export the report as a PDF and send it via the app or email." },
-        { id: 6, title: "What do the symptom trend graphs mean?", answer: "They show patterns in your symptoms over time to help identify triggers." }
+        { id: 6, title: "What do the symptom trend graphs mean?", answer: "They show patterns in your symptoms over time FAQAll identify triggers." }
       ]
     },
     {
@@ -128,7 +128,10 @@ const data = [
     }
   ];
 
-const Help = () => {
+const FAQAll = ({route}) => {
+  
+  const {previousScreen} = route.params 
+  
      const navigation = useNavigation()   
     const [isShowArray,setShowArray]=useState(null)
     const [selectedId,setSelected]=useState(null)
@@ -167,7 +170,7 @@ const Help = () => {
                 size={22} 
                 color={'gray'} 
                 style={{ fontWeight: 700 }} 
-                onPress={() => navigation.navigate('Account')} 
+                onPress={() => navigation.navigate(previousScreen)} 
             />
             <Text style={styles.title}>FAQ</Text>
         </View>
@@ -177,10 +180,10 @@ const Help = () => {
                 <>
                 <TouchableOpacity
                   key={option.id}
-                  style={styles.helpItem}
+                  style={styles.FAQAllItem}
                   onPress={()=>{getToggle(option.id)}}
                 >
-                  <Text style={styles.helpText}>{option.title}</Text>
+                  <Text style={styles.FAQAllText}>{option.title}</Text>
                   <Icon name={isShowArray === option.id ? 'up':'down'} size={20} color="#ccc"style={{fontWeight:'bold'}}/>
                 </TouchableOpacity>
                 {
@@ -204,7 +207,7 @@ const Help = () => {
   )
 }
 
-export default Help
+export default FAQAll
 
 const styles = StyleSheet.create({
     title: {
@@ -232,7 +235,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         textAlign: 'center',
       },
-      helpItem: {
+FAQAllItem: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
         borderColor: '#e5e9e6',
       },
       
-      helpText: {
+FAQAllText: {
         flex: 1,
         fontSize: 16,
         fontWeight: '600',
