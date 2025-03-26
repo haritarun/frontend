@@ -109,7 +109,7 @@ const [isFilterModel,setFilterModel]=useState(false)
     );
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={()=>{navigation.navigate('Doctors',{screen:'ImageScreen',params:{previousScreen:'EveryDayEssentialsAll'}})}}>
             <Image 
                 source={{ uri: item.imageUrl }} 
                 style={styles.cardImage}

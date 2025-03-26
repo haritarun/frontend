@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -30,6 +30,11 @@ import AboutUs from './src/Screens/AboutUs';
 import ServicesAll from './src/Screens/ServicesAll';
 import EmergencyNumber from './src/Screens/EmergencyNumber';
 import AppGuidScreen from './src/Screens/AppGuidScreen';
+import ImageScreen from './src/Screens/ImageScreen';
+import LandingPage from './src/Screens/Login/LandingPage';
+import Register from './src/Screens/Login/Register';
+import VerifyOtp from './src/Screens/Login/VerifyOtp';
+import LoginScreen from './src/Screens/Login/LoginScreen'
 
 
 const Tab = createBottomTabNavigator();
@@ -39,7 +44,17 @@ const Stack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
 
-    <Stack.Navigator initialRouteName='Guide'>
+    <Stack.Navigator initialRouteName='register' 
+    screenOptions={{
+      headerShown:false
+    }}>
+      <Stack.Screen name="onLandingPage" component={LandingPage} 
+      />
+        <Stack.Screen name="login" component={LoginScreen}/>
+        <Stack.Screen name="register" component={Register} />
+        <Stack.Screen name="verifyOtp" component={VerifyOtp} />
+        
+
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} options={{
           headerShown:false
@@ -111,8 +126,11 @@ const HomeStackScreen = () => {
           headerShown:false
         }}
         />
-
-        
+        <Stack.Screen name="ImageScreen" component={ImageScreen}
+        options={{
+          headerShown:false
+        }}
+        />
     </Stack.Navigator>
 
   );
@@ -124,7 +142,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Account"
+        initialRouteName="Doctors"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

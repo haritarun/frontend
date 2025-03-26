@@ -108,7 +108,7 @@ const GeneralTestAll = ({route}) => {
     );
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={()=>{navigation.navigate('Doctors',{screen:'ImageScreen',params:{previousScreen:'GeneralTestAll'}})}}>
             <Image 
                 source={{ uri: item.imageUrl }} 
                 style={styles.cardImage}

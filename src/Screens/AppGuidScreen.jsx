@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Octicons from 'react-native-vector-icons/Octicons';
-import EmergencyNumber from './EmergencyNumber';
+
 
 const AppGuideScreen = () => {
     const navigation = useNavigation()
@@ -437,6 +437,7 @@ const Medicaton = () => {
 }
 
 const Call = () => { 
+
     return(
       <View>
       {
@@ -495,15 +496,6 @@ const Rating = () => {
     </View>
     )  
 }
-
-
-
-
-
- 
-
-
-
 
 const styles = StyleSheet.create({
     title: {
