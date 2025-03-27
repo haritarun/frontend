@@ -44,7 +44,7 @@ const Stack = createStackNavigator();
 const HomeStackScreen = () => {
   return (
 
-    <Stack.Navigator initialRouteName='register' 
+    <Stack.Navigator 
     screenOptions={{
       headerShown:false
     }}>
@@ -140,9 +140,9 @@ const HomeStackScreen = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer> 
       <Tab.Navigator
-        initialRouteName="Doctors"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

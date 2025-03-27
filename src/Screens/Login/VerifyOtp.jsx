@@ -67,22 +67,23 @@ const VerifyOtp = ({route}) => {
   const getVerify=async()=>{
     try{
       const finalOtp = otp.join('')
-      const response = await axios.post("http://192.168.230.39:3000/verifyOtp",{
+      const response = await axios.post("http://192.168.172.39:3000/verifyOtp",{
         userOtp:finalOtp,
         email:data.email,
         password:data.password,
       })
       if(response.status===200){
-        navigation.navigate('home')
+        navigation.navigate('Home')
       }
     }catch(e){
       console.log("something went wrong",e)
+
     }
   }
 
   const getResend = async () => {
     try{
-      const response = await axios.post('http://192.168.230.39:3000/login',{
+      const response = await axios.post('http://192.168.172.39:3000/login',{
         email:data.email,
         password:data.password,
       })
@@ -102,27 +103,27 @@ const VerifyOtp = ({route}) => {
               end={{ x: 0, y: 0.3 }} 
               style={styles.container}
             >  
-              <LottieView source={require('../../../assets/login.json')} autoPlay loop style={{height:300,width:300,marginTop:100}}/>;
+              <LottieView source={require('../../../assets/otp.json')} autoPlay loop style={{height:300,width:300,marginTop:100}}/>;
               <View style={styles.otpContainer}>
-      {otp.map((digit, index) => (
-        <TextInput
-          key={index}
-          style={styles.otpBox}
-          value={digit}
-          onChangeText={(value) => handleOtpChange(index, value)}
-          keyboardType="numeric"
-          maxLength={1}
-          onKeyPress={({ nativeEvent }) => {
-            if (nativeEvent.key === 'Backspace') {
-              handleBackspace(index, digit);
-            }
-          }}
-          ref={(ref) => (otpInputs.current[index] = ref)}
-          placeholder="0"
-          placeholderTextColor="#aeb4b6"
-        />
-      ))}
-    </View>
+                {otp.map((digit, index) => (
+                    <TextInput
+                    key={index}
+                    style={styles.otpBox}
+                    value={digit}
+                    onChangeText={(value) => handleOtpChange(index, value)}
+                    keyboardType="numeric"
+                    maxLength={1}
+                    onKeyPress={({ nativeEvent }) => {
+                        if (nativeEvent.key === 'Backspace') {
+                        handleBackspace(index, digit);
+                        }
+                    }}
+                    ref={(ref) => (otpInputs.current[index] = ref)}
+                    placeholder="0"
+                    placeholderTextColor="#aeb4b6"
+                    />
+                ))}
+                </View>
               <View style={styles.timercontainer}>
                 {
                   resend ?

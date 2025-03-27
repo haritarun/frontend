@@ -33,18 +33,11 @@ const Register = () => {
 
 
     const getSubmit = async ()=>{
-      // if(isEmail.trim()===""){
-      //   setEmailError('Enter Any Email')
-      // }
-      // if(isPassword.trim()===""){
-      //   setPassword('Enter Any Password')
-      // }
-      // const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // if(regex.test(isEmail)){
+      
       
       try {
         console.log('Making API call to backend...');
-        const response = await axios.post('http://192.168.230.39:3000/login', {
+        const response = await axios.post('http://192.168.172.39:3000/login', {
           email:isEmail,
           password:isPassword,
         });
@@ -86,7 +79,7 @@ const Register = () => {
                 <Text style={styles.loginText}>Create Account</Text>
             </TouchableOpacity>
             <Text style={styles.bottomText}>Already You Have An Account ? <Text style={{color:'blue'}} onPress={getNavigate}>Sign In</Text></Text>
-            {/* <Text onPress={getPhoneNumber}>Loing With Phone Number</Text> */}
+            
             <Text style={{marginVertical:10,color:'gray'}}>Or</Text>
             <View style={styles.iconContainer}>
                 <AntDesign
