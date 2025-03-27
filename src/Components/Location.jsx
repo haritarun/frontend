@@ -5,8 +5,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import Geolocation from '@react-native-community/geolocation';
+import useLocationStore from './GlobalState/LocationStore';
 
 const Location = ({ navigation, route }) => {
+  const {AllLocations,setCurrentLocation,addLocation,currentLocation} = useLocationStore()
   const previousScreen = route.params?.previousScreen || 'Home';
   const [placeholder, setPlaceholder] = useState('');
   const [textIndex, setTextIndex] = useState(0);
@@ -61,11 +63,31 @@ const Location = ({ navigation, route }) => {
           format: "json",
         },
       });
-      setAddress1(response.data.display_name);
+      console.log("making a cal to backend")
+      const value = response.data.display_name
+      const data = value.split(",")
+      const ans = {
+        street:data[1],
+        city:data[2],
+        pincode:data[4],
+        
+      }
+      setAddress1(response.data.display_name); 
+
+      const isFilter = AllLocations.find(eachItem=>(eachItem === data[4]));
+      console.log(isFilter)
+      if (!isFilter){
+          await axios.post('http://localhost:3000/uploadLocation', {
+            location:ans
+      });
+      addLocation(data[4])
+      }
+      setCurrentLocation(ans)
+      console.log(currentLocation)
       
     } catch (e) {
       console.log("Error getting address", e);
-      Alert.alert('Error', 'Failed to get address');
+      
     }
   };
 
@@ -135,7 +157,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 17,
     fontWeight: 'bold',
-    marginBottom: 20,
+    
     color: 'gray',
     marginLeft: 15
   },
@@ -149,9 +171,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     flexDirection: 'row',
-    paddingTop: 20,
+    
     paddingLeft: 20,
-    alignItems: 'center'
+    alignItems: 'center',
+    
   },
   locationHeading: {
     textAlign: 'center',

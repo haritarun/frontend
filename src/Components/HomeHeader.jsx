@@ -4,13 +4,15 @@ import Icon from 'react-native-vector-icons/Entypo';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
 import Feather from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-
+import useLocationStore from './GlobalState/LocationStore';
+import axios from 'axios';
 
 const HomeHeader = ({item}) => {
     const navigation = useNavigation();
     const [placeholder, setPlaceholder] = useState('');
       const [textIndex, setTextIndex] = useState(0);
-    
+      const {currentLocation,setCurrentLocation} = useLocationStore()
+      
       const placeholderOptions = [
           'Enter Your Location...',
           'Search Nearby Places...',
@@ -38,9 +40,25 @@ const HomeHeader = ({item}) => {
           }
         }, 100); 
     
+
+        getFetchedLocation()
         return () => clearInterval(typeEffect);
       }, [textIndex]);
 
+      const getFetchedLocation =async()=>{
+        try{
+          if(Object.keys(currentLocation).length === 0){
+            const response = await axios.get('http:localhost:3000/getLocation')
+            if (response.status===200){
+              setCurrentLocation(response.data.data)
+            }
+          }
+          
+        }
+        catch(e){
+          console.log(e)
+        }
+      }
 
     return (
         <>
@@ -49,7 +67,12 @@ const HomeHeader = ({item}) => {
               navigation.navigate('Doctors', { screen: 'LocationScreen', params: { previousScreen: item } });
               }} >
               <Icon name="location-pin" size={20} color={'green'} />
-                  <Text style={styles.textContainer}>Add Location</Text> 
+                  {
+                    Object.keys(currentLocation).length === 0 ? 
+                    <Text style={styles.textContainer}>Add Location</Text> :
+                    <Text style={{fontSize:17,fontWeight:700,color:'#373734'}}>{currentLocation.street},{currentLocation.city} {currentLocation.pincode}</Text> 
+                    
+                  }
               </TouchableOpacity>
               <View style={styles.notificationContainer}>
                   <TouchableOpacity style={styles.IconContainer} onPress={()=>{
