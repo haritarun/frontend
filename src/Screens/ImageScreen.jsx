@@ -341,76 +341,76 @@ const styles = StyleSheet.create({
   reviewsLabel: {
     fontSize: 15,
   },
-  sectionContainer: {
-    paddingVertical: 20,
-    marginBottom:0,
-  },
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#1A1A1A',
-    marginBottom:5
-  },
-  scrollView: {
-    flexGrow: 0,
-  },
-  scrollContent: {
-    paddingRight: 15, 
-  },
-  productCard: {
-    width: 160,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 15,
-    marginRight: 20,
-    padding: 10,
-    
-  },
-  productImage: {
-    width: '100%',
-    height: 120,
-    borderRadius: 10,
-  },
-  productInfo: {
-    marginTop: 10,
-  },
-  productName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1A1A1A',
-  },
-  productType: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginTop: 2,
-  },
-  productPrice: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#007BFF',
-    marginTop: 5,
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  ratingText: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginLeft: 5,
-  },
-  addButton: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  addButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
+    sectionContainer: {
+      paddingVertical: 20,
+      marginBottom:0,
+    },
+    sectionTitle: {
+      fontSize: 22,
+      fontWeight: '700',
+      color: '#1A1A1A',
+      marginBottom:5
+    },
+    scrollView: {
+      flexGrow: 0,
+    },
+    scrollContent: {
+      paddingRight: 15, 
+    },
+    productCard: {
+      width: 160,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 15,
+      marginRight: 20,
+      padding: 10,
+      
+    },
+    productImage: {
+      width: '100%',
+      height: 120,
+      borderRadius: 10,
+    },
+    productInfo: {
+      marginTop: 10,
+    },
+    productName: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#1A1A1A',
+    },
+    productType: {
+      fontSize: 12,
+      color: '#6B7280',
+      marginTop: 2,
+    },
+    productPrice: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: '#007BFF',
+      marginTop: 5,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 5,
+    },
+    ratingText: {
+      fontSize: 12,
+      color: '#6B7280',
+      marginLeft: 5,
+    },
+    addButton: {
+      backgroundColor: '#007BFF',
+      paddingVertical: 8,
+      borderRadius: 8,
+      alignItems: 'center',
+      marginTop: 10,
+    },
+    addButtonText: {
+      color: '#FFFFFF',
+      fontSize: 14,
+      fontWeight: '600',
+    },
 });
 
 export default ImageScreen;

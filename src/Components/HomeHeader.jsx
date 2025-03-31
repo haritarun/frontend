@@ -12,6 +12,7 @@ const HomeHeader = ({item}) => {
     const [placeholder, setPlaceholder] = useState('');
       const [textIndex, setTextIndex] = useState(0);
       const {currentLocation,setCurrentLocation} = useLocationStore()
+      const [cartList,setCartList] = useState([])
       
       const placeholderOptions = [
           'Enter Your Location...',
@@ -22,6 +23,7 @@ const HomeHeader = ({item}) => {
       ];
     
       useEffect(() => {
+        fetchedList()
         let text = placeholderOptions[textIndex];
         let charIndex = 0;
     
@@ -39,11 +41,29 @@ const HomeHeader = ({item}) => {
             }, 1500); 
           }
         }, 100); 
+
+      
+
+      
+
+
     
 
         getFetchedLocation()
         return () => clearInterval(typeEffect);
       }, [textIndex]);
+
+
+      const fetchedList=async()=>{
+        try{
+            const response=await axios.get('http://localhost:3000/getDetailes')
+            
+            setCartList(response.data) 
+  
+        }catch(e){
+            console.log('something went wrong',e)
+        }
+    }
 
       const getFetchedLocation =async()=>{
         try{
@@ -92,14 +112,17 @@ const HomeHeader = ({item}) => {
             <View style={styles.container}>
                 <TextInput
                     placeholder={placeholder}
-                    style={styles.input}
+                    style={styles.input}df
                 />
                 <Feather name="search" size={20} color="#888" style={styles.icon} />
             </View>
-            <TouchableOpacity onPress={()=>{
+            <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{
                     navigation.navigate('Doctors',{screen:'CartScreen',params:{previousScreen:item}})
                   }}>
                 <FontAwesome6 name='cart-shopping' size={28} color={'#a0a9a8'} style={{marginLeft:15,marginTop:10}}/>
+                <View style={{height:20,width:20,borderRadius:'50%',backgroundColor:'#cfd4cf',position:'absolute',top:0,left:25,justifyContent:'center',alignItems:'center',fontSize:20,position:'absolute',top:0,left:35}}>
+                  <Text style={{color:'red'}}>{cartList.length}</Text>
+                </View>
             </TouchableOpacity>
         </View>
         </>

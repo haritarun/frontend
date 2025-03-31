@@ -35,6 +35,10 @@ import LandingPage from './src/Screens/Login/LandingPage';
 import Register from './src/Screens/Login/Register';
 import VerifyOtp from './src/Screens/Login/VerifyOtp';
 import LoginScreen from './src/Screens/Login/LoginScreen'
+import BottomCart from './src/Screens/BottomCart';
+import Checkout from './src/Screens/Checkout';
+import HealthArticalScreen from './src/Screens/HealthArticalScreen';
+import PremiumScreen from './src/Screens/PremiumScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -47,7 +51,8 @@ const HomeStackScreen = () => {
     <Stack.Navigator 
     screenOptions={{
       headerShown:false
-    }}>
+    }}
+    initialRouteName='PremiumScreen'>
       <Stack.Screen name="onLandingPage" component={LandingPage} 
       />
         <Stack.Screen name="login" component={LoginScreen}/>
@@ -56,81 +61,39 @@ const HomeStackScreen = () => {
         
 
         <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="LocationScreen" component={Location} options={{
-          headerShown:false
-        }}/>
+        <Stack.Screen name="LocationScreen" component={Location} />
         <Stack.Screen name="StoreScreen" component={StoreScreen} 
-        options={{
-          headerShown:false
-        }}/>
-        <Stack.Screen name="NotificationScreen" component={NotificationScreen} options={{
-          headerShown:false
-        }}/>
-        <Stack.Screen name="CartScreen" component={CartScreen} options={{
-          headerShown:false
-        }}/>
-        <Stack.Screen name="ServicesScreen" component={ServicesScreen} options={{
-          headerShown:false
-        }} />
-        <Stack.Screen name="EveryDayEssentialsAll" component={EveryDayEssentialsAll}
-        options={{
-          headerShown:false
-        }}/>
-        <Stack.Screen name="GeneralTestAll" component={GeneralTestAll} 
-        options={{
-          headerShown:false
-        }}
         />
-        <Stack.Screen name="TestAll" component={TestAll} 
-        options={{
-          headerShown:false
-        }}/>
+        <Stack.Screen name="NotificationScreen" component={NotificationScreen} />
+        <Stack.Screen name="CartScreen" component={CartScreen} />
+        <Stack.Screen name="ServicesScreen" component={ServicesScreen} />
+        <Stack.Screen name="EveryDayEssentialsAll" component={EveryDayEssentialsAll} />
+        <Stack.Screen name="GeneralTestAll" component={GeneralTestAll} />
+        <Stack.Screen name="TestAll" component={TestAll} />
         <Stack.Screen name="AllCategory" component={AllCategoryAll}
-         options={{
-          headerShown:false
-        }}/>
+        />
         <Stack.Screen name="SkinCare" component={SkinCareAll}
-         options={{
-          headerShown:false
-        }}/>
+         />
         <Stack.Screen name="OrderScreen" component={OrderScreen}
-         options={{
-          headerShown:false
-        }}/>
+         />
         <Stack.Screen name="Help" component={Help}
-         options={{
-          headerShown:false
-        }}/>
+        />
         <Stack.Screen name="FAQAll" component={FAQAll}
-        options={{
-          headerShown:false
-        }}
         />
         <Stack.Screen name="AboutUs" component={AboutUs}
-        options={{
-          headerShown:false
-        }}
         />
         <Stack.Screen name="ServicesAll" component={ServicesAll}
-        options={{
-          headerShown:false
-        }}
         />
         <Stack.Screen name="EmergencyNumber" component={EmergencyNumber}
-        options={{
-          headerShown:false
-        }}
         />
         <Stack.Screen name="Guide" component={AppGuidScreen}
-        options={{
-          headerShown:false
-        }}
         />
         <Stack.Screen name="ImageScreen" component={ImageScreen}
-        options={{
-          headerShown:false
-        }}
         />
+        <Stack.Screen name="BottomCart" component={BottomCart} />
+        <Stack.Screen name="Checkout" component={Checkout} />
+        <Stack.Screen name="HealthArticalScreen" component={HealthArticalScreen } />
+        <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
     </Stack.Navigator>
 
   );
@@ -142,7 +105,7 @@ const App = () => {
   return (
     <NavigationContainer> 
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Doctors"
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,

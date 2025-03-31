@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput, Image,ScrollView,Button } from 'react-native';
-import React, { useState,useLayoutEffect } from 'react';
+import React, { useState,useLayoutEffect ,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
@@ -9,10 +9,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDegine from 'react-native-vector-icons/MaterialIcons'; 
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import FontAwesome6 from 'react-native-vector-icons/FontAwesome6'; 
+import axios from 'axios';
+import BottomCart from './BottomCart';
 
 const GeneralTestAll = ({route}) => {
+    const [cartList,setCartList]=useState([])
     const navigation = useNavigation();
-    const {previousScreen} = route.params||'Home';
+    const previousScreen = 'Home';
     const [isModelVisiable,setModelVisiable]=useState(false)
     const [isFilterModel,setFilterModel]=useState(false)
     const [priceRange, setPriceRange] = useState([0, 50]);
@@ -102,6 +105,73 @@ const GeneralTestAll = ({route}) => {
         })
     })
 
+    useEffect(()=>{
+            fetchedList()
+        })
+    
+
+    const fetchedList = async()=>{
+        try{
+            const response = await axios.get('http://localhost:3000/getcartdetailes')
+            if (response.status===200){
+                const fetchedList = response.data.data
+                setCartList([...fetchedList])     
+            }
+        }catch(e){
+            console.log('something went wrong',e)
+        }
+    }
+
+    const getBooked=async(title,price,image,rating)=>{
+        console.log('enter into getBooked')
+        try{
+           const response= await axios.post('http://localhost:3000/addtocart',{
+            title,
+            price,
+            image,
+            rating
+           })
+           if(response.status===200){
+               
+           }
+        }catch(e){
+            console.log("something went wrong ",e)
+        }
+        fetchedList()
+      }
+
+      const getIncrement=async(title) => {
+        try{
+            const response=await axios.put('http://localhost:3000/getIncrement',{
+                title
+            })
+            if (response.status===200){
+                fetchedList()
+            }
+        }catch(e){
+            console.log('something went wrong',e)
+        }
+      }
+
+      const getDecrement =async(title)=>{
+        
+        console.log('enter into getIncrement')
+        try{
+            const response=await axios.put('http://localhost:3000/getDecrement',{
+                title
+            })
+            if (response.status==200){
+                
+                fetchedList();
+            }
+    
+    
+        }catch(e){
+            console.log('something went wrong',e)
+        }
+      }
+
+
     const filteredItems = items.filter(item => 
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
         (selectedFilter === 'All' || item.category === selectedFilter)
@@ -115,18 +185,38 @@ const GeneralTestAll = ({route}) => {
                 resizeMode="cover"
             />
             <View style={styles.cardContent}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardPrice}>${item.price.toFixed(2)}</Text>
-                <View style={styles.ratingContainer}>
-                    <Icon name="star" size={16} color="#FFD700" />
-                    <Text style={styles.ratingText}>{item.rating}</Text>
-                </View>
-            </View>
+                            <Text style={styles.cardTitle}>{item.title}</Text>
+                            <Text style={styles.cardPrice}>${item.price.toFixed(2)}</Text>
+                            <View style={styles.bottomRow}>
+                                <View style={styles.ratingContainer}>
+                                    <Icon name="star" size={16} color="#FFD700" />
+                                    <Text style={styles.ratingText}>{item.rating}</Text>
+                                </View>
+                                {
+                                     cartList.some(eachItem => eachItem.title === item.title)  ? 
+                                     <View style={{flexDirection:'row',alignItems:'center'}}>
+                                        <TouchableOpacity style={{backgroundColor:'#cfcfc8',borderRadius:50,padding:3}} onPress={()=>{getIncrement(item.title)}}>
+                                            <Entypo name="plus" size={20} color={'white'}/>
+                                        </TouchableOpacity>
+                                        <Text style={{marginHorizontal:9,fontSize:20,fontWeight:700}}>{cartList.find(eachItem => eachItem.title === item.title)?.quantity || 0}</Text>
+                                        <TouchableOpacity style={{backgroundColor:'#cfcfc8',borderRadius:50,padding:3}} onPress={()=>{getDecrement(item.title)}}>
+                                            <Entypo name="minus" size={20} color={'white'}/>
+                                        </TouchableOpacity>
+                                    </View>:
+                                     <TouchableOpacity style={styles.buyButton} onPress={()=>{getBooked(item.title,item.price.toFixed(2),item.imageUrl,item.rating)}}>
+                                     <Text style={styles.buyButtonText}>Buy</Text>
+                                 </TouchableOpacity>
+                                }
+                            </View>
+                        </View>
         </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
+            {
+                cartList.length > 0 && <BottomCart />
+            }
             <View style={styles.headerContainer}>
                 <View style={styles.headerRow}>
                     <Icon 
@@ -479,6 +569,24 @@ const styles = StyleSheet.create({
         marginTop: 20,
         fontSize: 19,
         color: '#333',
+    },
+    bottomRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
+    },
+    buyButton: {
+        backgroundColor: '#007AFF',
+        paddingVertical: 4,
+        paddingHorizontal: 12,
+        borderRadius: 12,
+        
+    },
+    buyButtonText: {
+        color: 'white',
+        fontSize: 15,
+        fontWeight: '600',
     },
     
 });

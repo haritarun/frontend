@@ -14,7 +14,6 @@ const Search = () => {
         placeholderTextColor="#888"
       />
 
-      
       <TouchableOpacity onPress={() => console.log('Filter pressed')} >
         <Icon name="filter-list" size={20} color="#888" style={styles.filterIcon} />
       </TouchableOpacity>
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    
+    marginBottom:10,
     marginTop: 16,
   },
   searchIcon: {

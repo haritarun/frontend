@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image,TouchableOpacity } from 'react-native';
 import React from 'react';
 import Swiper from 'react-native-swiper';
 import Fontisto from 'react-native-vector-icons/MaterialCommunityIcons';
 import LottieView from 'lottie-react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Data = [
   {
@@ -20,6 +21,7 @@ const Data = [
 ];
 
 const Premium = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.offerContainer}>
       <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#456b52' }}>Get Premium</Text>
@@ -32,7 +34,7 @@ const Premium = () => {
         autoplayTimeout={5} 
       >
         {Data.map((eachItem) => (
-          <View key={eachItem.id} style={styles.container}>
+          <TouchableOpacity key={eachItem.id} style={styles.container} onPress={() => {navigation.navigate('Doctors', { screen: 'PremiumScreen' })}}>
             <LottieView
               source={require('../../../assets/primium.json')}
               style={styles.logo}
@@ -63,7 +65,7 @@ const Premium = () => {
                 style={{ height: 100, width: 100, marginLeft: 30, marginTop: 10 }}
               />
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </Swiper>
     </View>
