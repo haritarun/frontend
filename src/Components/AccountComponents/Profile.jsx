@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View ,Image, TouchableOpacity, TextInput, Platform } from 'react-native'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -10,6 +10,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ImagePicker from 'react-native-image-crop-picker'
 import { launchCamera,launchImageLibrary } from 'react-native-image-picker';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import axios from 'axios';
 
 
 const Profile = () => {
@@ -22,6 +23,10 @@ const Profile = () => {
   const [showPicker,setShowPicker] = useState(false)
   const [selectedOption, setSelectedOption] = useState(null);   
   const [showImageModal,setImageModal] = useState(false)
+  const [gender,setGender] = useState('Male')
+  const [name,setName] = useState('')
+  const [email,setEmail] = useState('')
+  
 
  
   const [isShowModal,setShowModal]=useState(false)
@@ -36,8 +41,7 @@ const Profile = () => {
     setDate(currentDate);
     setDay(currentDate.getDate().toString().padStart(2,'0'));
     setMonth((currentDate.getMonth() + 1).toString().padStart(2,'0'));
-    setYear(currentDate.getFullYear().toString());
-    
+    setYear(currentDate.getFullYear().toString()); 
   };
 
   const options = [
@@ -46,8 +50,50 @@ const Profile = () => {
     { id: '3', label: 'Other' },
   ];  
 
+  useEffect(() => {
+    fetchedList()
+  },[])
 
-  const handleSelect = (id) => {
+
+  const fetchedList = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/getEmail');
+      
+      if (response.status === 200) {  
+        console.log('Fetched data:', response.data.data);
+        const { name, age, imageurl, gender } = response.data.data; 
+        const email = response.data.email
+        setEmail(email)
+        
+        setName(name);
+        console.log('Name:', name);
+        
+        setImageUri(imageurl);  
+        const [day, month, year] = age.split('-');  
+        setDay(day);
+        setMonth(month);
+        setYear(year);
+        const selectedGenderOption = options.find(option => option.label === gender);
+        if (selectedGenderOption) {
+          setSelectedOption(selectedGenderOption.id);
+          setGender(selectedGenderOption.label);
+        }
+        
+        console.log('Successfully fetched data');
+      } else {
+        console.log('Unexpected status code:', response.status);
+      }
+    } catch (e) {
+      console.error('Error fetching data:', e);
+    }
+  };
+
+
+
+
+
+  const handleSelect = (id,label) => {
+    setGender(label)
     setSelectedOption(id);
   };
 
@@ -129,20 +175,41 @@ const Profile = () => {
     })
   }
 
+  const getHandle=async()=>{
+    try{
+      console.log(name)
+      const response = await axios.post('http://localhost:3000/updateProfile',{
+        title:name,
+        image:imageUri,
+        date:`${day}-${month}-${year}`,
+        gender:gender
+
+      })
+      if (response.status === 200){
+        console.log('successfully updated')
+      }
+      else{
+        console.log('something went wrong')
+      }
+    }catch(e){
+
+    }
+  }
+
   return (
     <View style={styles.offerContainer} > 
         <View style={{flexDirection:'row',justifyContent:'start',}}>
-            <Image source={{uri:'https://images.aeonmedia.co/images/afef287f-dd6f-4a6a-b8a6-4f0a09330657/sized-kendal-l4ikccachoc-unsplash.jpg?width=3840&quality=75&format=auto',height:70,width:70}} 
+            <Image source={{uri:imageUri,height:70,width:70}} 
             style={{borderRadius:10}} onPress={()=>{toggleMode()}}/>
-            <View style={{marginTop:5,marginLeft:20,marginTop:20}}>
-                <Text style={{fontSize:17,color:'#0c5b41',fontWeight:700}}>Welcome User</Text>
-                <Text style={{fontSize:16,color:"#868d8b",fontWeight:700}}>tarunbommana798@gmail.com</Text>
+            <View style={{marginTop:5,marginLeft:10,marginTop:10}}>
+                <Text style={{fontSize:19,color:'#0c5b41',fontWeight:700}}>{name}</Text>
+                <Text style={{fontSize:17,color:"#868d8b",fontWeight:700,marginTop:5}}>{email}</Text>
             </View>
         </View>
         <TouchableOpacity style={{borderWidth:2,borderColor:'#57aa8f',padding:10,marginTop:20,borderRadius:10,}} onPress={()=>{setShowModal(!isShowModal)}}>
             <Text style={{textAlign:'center',color:'#57aa8f',fontWeight:700,fontSize:18,}}>Create Profile</Text>
         </TouchableOpacity>
-                    <Modal
+        <Modal
                     isVisible={isShowModal}
                     backdropOpacity={0.5}
                     onBackdropPress={()=>{setShowModal(!isShowModal)}}
@@ -210,9 +277,13 @@ const Profile = () => {
                             </View>
                             <View style={{marginTop:10}}>
                               <Text style={styles.title}>Full Name</Text>
-                              <TextInput placeholder='Enter Your Name' style={{marginLeft:10,marginTop:10 }}>
-                              </TextInput>
-                              <Text style={styles.inputName}/>
+                              <TextInput 
+                              placeholder='Enter Your Name' 
+                              style={{marginLeft:10,marginTop:10 }}
+                              value={name}
+                              onChangeText={(text) => setName(text)}  />
+                              <Text style={styles.inputName}
+                              />
                               <Text style={styles.title}>Date Of Birth</Text>
                               <View style={styles.container}>
                                   <View style={styles.inputContainer}>
@@ -225,9 +296,7 @@ const Profile = () => {
                                         onChangeText={(text)=>{
                                           const val = parseInt(text)
                                           console.log(val)
-                                          
                                             setDay(text)
-
                                         }} 
                                         onBlur={()=>{
                                           const val = parseInt(day)
@@ -250,22 +319,20 @@ const Profile = () => {
                                         keyboardType='numeric'
                                         onChangeText={(text)=>{
                                           const val = parseInt(text)
-                                          setMonth(text)
-
+                                          console.log(val)
+                                            setMonth(val)
                                         }} 
                                         onBlur={()=>{
-                                          const val = parseInt(month)
-                                          if (val<0 || val > 12){
+                                          const val = parseInt(day)
+                                          if (val<0 || val > 31){
                                             setShowError(true)
-                                            setError('Enter Valid Month')
+                                            setError('Enter Valid Date')
                                           }
                                           else{
                                             setMonth(month.padStart(2,'0'))
                                             setShowError(false)
                                           }
                                         }}> 
-
-                                        
                                         </TextInput>
 
                                         <TextInput
@@ -284,12 +351,13 @@ const Profile = () => {
                                             setError('Enter Valid Year')
                                           }
                                           else{
-                                            setMonth(month.padStart(4,'0'))
+                                            setYear(year.padStart(4,'0'))
                                             setShowError(false)
                                           }
                                         }} > 
 
                                         </TextInput>
+                                        
                                   </View>
                                   {
                                           showError && <Text style={{marginTop:-10,color:'red',marginBottom:10,fontSize:14,fontWeight:700}}>{error}</Text>
@@ -315,7 +383,7 @@ const Profile = () => {
                                         <TouchableOpacity
                                           key={option.id}
                                           style={styles.radioContainer}
-                                          onPress={() => handleSelect(option.id)}
+                                          onPress={() => handleSelect(option.id,option.label)}
                                         >
                                           <View style={styles.radioCircle}>
                                             {selectedOption === option.id && <View style={styles.selectedDot} />}
@@ -325,15 +393,15 @@ const Profile = () => {
                                       ))}
                       
                                     </View>
-                              <TouchableOpacity style={{marginTop:20,height:70,width:'100%',backgroundColor:'#2b2b2a',borderRadius:20,justifyContent:'center',alignItems:'center'}}>
-                                <Text style={{fontSize:20,color:'#ffffff',fontWeight:700,fontSize:20}}>Update Profile</Text>
-                              </TouchableOpacity>
+                                    <TouchableOpacity style={{marginTop:20,height:70,width:'100%',backgroundColor:'#2b2b2a',borderRadius:20,justifyContent:'center',alignItems:'center'}} onPress={()=>{getHandle()}}>
+                                      <Text style={{color:'#ffffff',fontWeight:700,fontSize:20}}>Update Profile</Text>
+                                    </TouchableOpacity>
                             </View>
                           </View>
 
                         </View>
-                    </Modal>
-                    <Modal
+        </Modal>
+        <Modal
                         isVisible={showImageModal}
                         onBackdropPress={toggleMode}
                         backdropOpacity={0.5}
@@ -354,7 +422,7 @@ const Profile = () => {
         
                             
                         </View>
-                    </Modal>
+        </Modal>
     </View>
   )
 }

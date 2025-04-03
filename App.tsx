@@ -39,6 +39,9 @@ import BottomCart from './src/Screens/BottomCart';
 import Checkout from './src/Screens/Checkout';
 import HealthArticalScreen from './src/Screens/HealthArticalScreen';
 import PremiumScreen from './src/Screens/PremiumScreen';
+import PremiumDetailes from './src/Screens/PremiumDetailes';
+import Payment from './src/Screens/Payment';
+import CheckoutScreen from './src/Screens/CheckoutScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -52,14 +55,12 @@ const HomeStackScreen = () => {
     screenOptions={{
       headerShown:false
     }}
-    initialRouteName='PremiumScreen'>
+    initialRouteName='Chat'>
       <Stack.Screen name="onLandingPage" component={LandingPage} 
       />
         <Stack.Screen name="login" component={LoginScreen}/>
         <Stack.Screen name="register" component={Register} />
         <Stack.Screen name="verifyOtp" component={VerifyOtp} />
-        
-
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="LocationScreen" component={Location} />
         <Stack.Screen name="StoreScreen" component={StoreScreen} 
@@ -94,12 +95,13 @@ const HomeStackScreen = () => {
         <Stack.Screen name="Checkout" component={Checkout} />
         <Stack.Screen name="HealthArticalScreen" component={HealthArticalScreen } />
         <Stack.Screen name="PremiumScreen" component={PremiumScreen} />
+        <Stack.Screen name="PremiumDetailes" component={PremiumDetailes} />
+        <Stack.Screen name="Payment" component={Payment} />
+        <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
     </Stack.Navigator>
 
   );
 };
-
-
 
 const App = () => {
   return (

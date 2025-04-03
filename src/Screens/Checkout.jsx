@@ -1,18 +1,58 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import React, { useState,useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView,Alert } from 'react-native';
+import React, { useState,useEffect,useLayoutEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios'
+import RazorpayCheckout from 'react-native-razorpay';
+import Modal from 'react-native-modal';
 
 const Checkout = () => {
   const navigation = useNavigation();
   const [cartList, setCartList] = useState([]);
+  
+  const [email,setEmail] = useState('')
+  const [name,setName] = useState('')
+  const [imageUri,setImageUri] = useState('')
+  const [showModel,setShowModel] = useState(false)
+
+  
+  
 
   useEffect(()=>{
         fetchedList()
-      })
+        fetchedData()
+      },[])
+
+  useLayoutEffect(()=>{
+        navigation.getParent()?.setOptions({
+            tabBarStyle:{display:'none'}
+        })
+  })
+
+    const fetchedData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3000/getEmail');
+          
+          if (response.status === 200) {  
+            console.log('Fetched data:', response.data.data);
+            const { name, age, imageurl, gender } = response.data.data; 
+            const email = response.data.email
+            setEmail(email)
+            
+            setName(name);
+            
+            setImageUri(imageurl);  
+             
+            console.log('Successfully fetched data');
+          } else {
+            console.log('Unexpected status code:', response.status);
+          }
+        } catch (e) {
+          console.error('Error fetching data:', e);
+        }
+    };
 
     const fetchedList=async()=>{
             try{
@@ -72,6 +112,78 @@ const Checkout = () => {
     const getTotal = () => {
         return cartList.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     };
+
+    const createOrder = async () => {
+      try {
+        
+        const response = await axios.post('http://localhost:3000/create-order', {
+          amount: getTotal() * 100 + getTotal()*0.08*100+5.99*100, 
+          currency: 'INR'
+        });
+        
+        return response.data;
+      } catch (error) {
+        console.error('Order creation failed:', error);
+        throw error;
+      }
+    };
+  
+    const handlePayment = async () => {
+      
+      try {
+        
+        const order = await createOrder();
+        
+        const options = {
+          description: 'Payment for services',
+          image: 'https://your-logo-url.png',
+          currency: 'INR',
+          key: 'rzp_test_c6OOqIRzJ4dxn4',
+          amount: order.amount.toString(),
+          name:'Tarun',
+          order_id: order.id, 
+          prefill: {
+            email: 'user@example.com',
+            contact: '919010144168',
+            name: 'User Name'
+          },
+          theme: {color: '#53a20e'}
+        };
+  
+        RazorpayCheckout.open(options)
+          .then(async (data) => {
+            
+            await axios.post('http://localhost:3000/verify-payment', {
+              orderId: order.id,
+              paymentId: data.razorpay_payment_id,
+              signature: data.razorpay_signature
+            });
+            console.log('success')
+            const response = await axios.post('http://localhost:3000/orderNow', {
+              data:{cartList}
+            })
+            if (response.status===200){
+              setShowModel(true)
+              setCartList([])
+              fetchedList()
+              console.log('success')
+            } 
+
+            
+          })
+          .catch(async(error) => {
+            try{
+                
+            }catch(e){
+              console.log('something went wrong',e)
+            }
+          });
+      } catch (error) {
+        Alert.alert('Error', 'Failed to initiate payment');
+      }
+    };
+
+    
 
   return (
     <View style={styles.container}>
@@ -161,11 +273,64 @@ const Checkout = () => {
             <Text style={styles.totalValue}>{(getTotal() + 5.99 + (getTotal() * 0.08)).toFixed(2)}</Text>
           </View>
           
-          <TouchableOpacity style={styles.checkoutButton}>
+          <TouchableOpacity style={styles.checkoutButton} onPress={()=>{handlePayment()}}>
             <Text style={styles.checkoutButtonText}>Proceed to Payment</Text>
           </TouchableOpacity>
         </View>
       )}
+
+      <Modal 
+        isVisible={showModel}
+        onBackdropPress={() => setShowModel(false)}
+        backdropOpacity={0.7}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        animationInTiming={300}
+        animationOutTiming={300}
+        backdropTransitionInTiming={300}
+        backdropTransitionOutTiming={300}
+        style={styles.modal}
+      >
+        <View style={styles.successModalContainer}>
+          
+          <View style={styles.successIconContainer}>
+            <Icon name="checkcircle" size={60} color="#4BB543" />
+          </View>
+          
+          
+          <Text style={styles.successTitle}>Payment Successful!</Text>
+          <Text style={styles.successSubtitle}>Thank you for your purchase</Text>
+          
+          
+          <View style={styles.orderSummary}>
+            <Text style={styles.summaryText}>Order #: 1</Text>
+            <Text style={styles.summaryText}>Amount: {(getTotal()  + getTotal()*0.08+5.99).toFixed(2)}</Text>
+          </View>
+          
+          
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity 
+              style={[styles.actionButton, styles.backButton1]}
+              onPress={() => {
+                setShowModel(false);
+                
+              }}
+            >
+              <Text style={styles.backButtonText}>Back to Shop</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[styles.actionButton, styles.ordersButton]}
+              onPress={() => {
+                setShowModel(false);
+                navigation.navigate('Doctors',{screen:'OrderScreen'});
+              }}
+            >
+              <Text style={styles.ordersButtonText}>View Orders</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -329,6 +494,81 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     minWidth: 20,
     textAlign: 'center',
+  },
+  modal: {
+    justifyContent: 'center',
+    margin: 20,
+  },
+  successModalContainer: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  successIconContainer: {
+    marginBottom: 20,
+  },
+  successTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  successSubtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  orderSummary: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 10,
+    marginBottom: 25,
+  },
+  summaryText: {
+    fontSize: 14,
+    color: '#555',
+    marginVertical: 3,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  actionButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 5,
+  },
+  backButton1: {
+    backgroundColor: '#f0f0f0',
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  backButtonText: {
+    color: '#333',
+    fontWeight: '600',
+  },
+  ordersButton: {
+    backgroundColor: '#4BB543',
+  },
+  ordersButtonText: {
+    color: 'white',
+    fontWeight: '600',
   },
 });
 

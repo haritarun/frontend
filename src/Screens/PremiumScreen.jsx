@@ -8,18 +8,17 @@ const plans = [
   {
     id: '1',
     imageUrl: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118',
-    title: 'Clinic Pro',
+    title: 'monthly',
     description: 'Essential digital tools for small clinics',
-    priceMonthly: '$299/month',
-    priceAnnual: '$2,999/year',
-  },
+    price: '$299/month',
+    popular: false
+    },
   {
     id: '2',
     imageUrl: 'https://images.unsplash.com/photo-1581595219315-a187dd40c322',
-    title: 'Hospital Suite',
+    title: 'Yearly',
     description: 'Comprehensive solution for medium hospitals',
-    priceMonthly: '$899/month',
-    priceAnnual: '$9,499/year',
+    price: '$9,499/year',
     popular: true
   },
 ];
@@ -105,10 +104,41 @@ const PremiumScreen = () => {
       <View style={styles.plansContainer}>
         {plans.map((eachItem) => (
           <View key={eachItem.id} style={styles.planCard}>
-            <Text style={styles.planTitle}>{eachItem.title}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' ,justifyContent:'space-between'}}>
+              <Text style={styles.planTitle}>{eachItem.title}</Text>
+              {
+                eachItem.popular && (
+                  <Text style={{ color: 'white', fontSize: 13, fontWeight: 700,backgroundColor:'green' ,borderRadius:20,padding:5}}>Popular</Text>
+                )
+              }
+            </View>
+            <Text style={{marginTop:5,fontWeight:500}}> First 7 Days Free . Then <Text style={{fontWeight:700}}>{eachItem.price}</Text></Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 10 }}>
+              <TouchableOpacity
+                style={{
+                  paddingHorizontal: 12,
+                  paddingVertical: 5,
+                  borderRadius: 12,
+                  backgroundColor: '#f0f0f0',
+                  borderWidth: 1,
+                  borderColor: '#ddd',
+                  alignItems: 'center'
+                }}
+                onPress={()=>{navigation.navigate('Doctors',{screen:'PremiumDetailes',params:{data:eachItem}})}}
+              >
+                <Text style={{ fontSize: 14, fontWeight: '600', color: '#333' }}>View Plan  →</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         ))}
       </View>
+      <TouchableOpacity 
+      style={{width:'90%',alignItems:'center',justifyContent:'center',backgroundColor:'#494e4e',padding:15,borderRadius:10,marginTop:20,marginHorizontal:20}}>
+        <Text style={{color:"white",fontWeight:700,fontSize:18}}>Continue</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{justifyContent:'center',width:'100%',marginTop:10}}>
+      <Text style={{textAlign:'center',fontSize:18,textDecorationLine:'underline'}}>Back</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -129,7 +159,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   swiper: {
-    height: 300,
+    height: 430,
     marginTop: 10,
   },
   slide: {
@@ -138,8 +168,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#efefef',
     borderRadius: 10,
-    paddingVertical: 30,
+    
     marginTop: 10,
+    paddingTop:50,
+    paddingBottom: 50,
+    
   },
   slideImage: {
     height: 200,
@@ -151,35 +184,39 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     color: 'black',
-    marginTop: 5,
+    marginTop: 20,
   },
   slideDescriptionContainer: {
     width: '65%',
+    fontWeight:500,
+
   },
   slideDescription: {
     fontSize: 14,
     color: 'black',
-    marginTop: 10,
+    marginTop: 20,
     textAlign: 'center',
     lineHeight: 20,
     fontWeight: '700',
   },
   plansContainer: {
-    alignItems: 'center',
+    paddingHorizontal:20,
     marginTop: 20,
   },
   planCard: {
     backgroundColor: '#ffffff',
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'blue',
-    width: '80%',
+    borderWidth: 2,
+    borderColor: '#b4b9b9',
+    width: '100%',
     padding: 15,
     marginBottom: 15,
+    marginVertical:10
   },
   planTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    color:'#494e4e',
+    fontWeight:700,
   },
 });
 

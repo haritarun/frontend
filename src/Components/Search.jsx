@@ -4,10 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Search = () => {
   return (
     <View style={styles.container}>
-      
       <Icon name="search" size={20} color="#888" style={styles.searchIcon} />
-
-      
       <TextInput
         style={styles.input}
         placeholder="Search..."
